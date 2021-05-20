@@ -16,18 +16,18 @@ export const SidebarData = [
     link: "/prediction",
   },
   {
-    title: "Model",
+    title: "Classification Model",
     icon: <InsertChartIcon />,
-    link: "/model",
+    link: "/classification-model",
   },
   {
-    title: "Mailbox",
-    icon: <MailIcon />,
-    link: "/mail",
+    title: "Regression Model",
+    icon: <InsertChartIcon />,
+    link: "/regression-model",
   },
   {
-    title: "hello",
+    title: "Anomaly Graph",
     icon: <MailIcon />,
-    link: "/hello",
+    link: "/anomaly-graph",
   },
 ];

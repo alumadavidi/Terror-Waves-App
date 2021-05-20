@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
 
-class Mail extends Component {
+class AnomalyGraph extends Component {
     state = {  }
     render() {
-        return ( <div> mail
+        return ( <div> Anomaly Graph
             </div> );
     }
 }
 
 
-export default Mail;
+export default AnomalyGraph;

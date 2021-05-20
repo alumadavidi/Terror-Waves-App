@@ -19,14 +19,14 @@ body{
 .Sidebar{
   background-color: #2F4050;
   height: 90%;
-  width: 15%;
+  width: 20%;
   float: left;
 }
 
 .Page{
   margin-left: 15%;
   height: 90%;
-  width: 85%;
+  width: 80%;
   font-size: xx-large;
   text-align: center;
   
