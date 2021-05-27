@@ -1,4 +1,70 @@
+@import url("https://cdn.syncfusion.com/ej2/material.css");
 .homeImage {
-    margin-top: 13%;
-    
+  margin-top: 13%;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.DatePicker {
+  float: right;
+  margin-top: 5%;
+  margin-right: 5%;
+}
+
+.PredData {
+  background-color: darkkhaki;
+  float: left;
+  margin-top: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70%;
+  height: 100%;
+}
+
+.PredDataLeft {
+  float: left;
+  padding-left: 5%;
+}
+
+.TerrorState {
+}
+.TerrorState #icon {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.PredDataRight {
+  float: right;
+}
+.ParamList {
+  float: right;
+  height: auto;
+  width: 100%;
+}
+.ParamList .row {
+  width: 100%;
+  height: 60px;
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.ParamList .row #icon {
+  flex: 20%;
+  display: grid;
+  place-items: center;
+}
+
+.ParamList .row #title {
+  flex: 60%;
+}
+
+.ParamList .row #val {
+  flex: 20%;
 }
