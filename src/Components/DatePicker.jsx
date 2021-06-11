@@ -18,8 +18,7 @@ class DatePicker extends Component {
     return (
       <div className="DatePicker">
         <DatePickerComponent
-          placeholder="Enter Date"
-          value={this.state.dateValue}
+          placeholder="Select Date"
           min={this.state.startDate}
           max={this.state.enddate}
           format="dd-MM-yy"

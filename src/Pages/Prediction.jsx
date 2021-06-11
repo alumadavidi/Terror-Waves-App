@@ -8,9 +8,15 @@ import HolidayIcon from "@material-ui/icons/AccountBalance";
 class Prediction extends Component {
   state = {
     date: new Date(),
-    inTerrorWave: false,
-    modelAcc: 90,
+    classPred: false,
+    regPred: 70,
+    regModelAcc: 90,
+    classModelAcc: 80,
     params: [
+      { title: "weather", icon: <WeatherIcon />, val: 90 },
+      { title: "holiday", icon: <HolidayIcon />, val: 1 },
+      { title: "weather", icon: <WeatherIcon />, val: 90 },
+      { title: "holiday", icon: <HolidayIcon />, val: 1 },
       { title: "weather", icon: <WeatherIcon />, val: 90 },
       { title: "holiday", icon: <HolidayIcon />, val: 1 },
     ],
@@ -26,10 +32,13 @@ class Prediction extends Component {
     return (
       <div>
         <DatePicker updateDate={this.updateDate} />
+
         <PredictionData
           date={this.state.date}
-          inTerrorWave={this.state.inTerrorWave}
-          modelAcc={this.state.ModelAcc}
+          classPred={this.state.classPred}
+          regPred={this.state.regPred}
+          regModelAcc={this.state.regModelAcc}
+          classModelAcc={this.state.classModelAcc}
           params={this.state.params}
         />
       </div>

@@ -12,43 +12,33 @@
 }
 
 .PredData {
-  background-color: darkkhaki;
-  float: left;
-  margin-top: 5%;
-  margin-left: 15%;
-  margin-right: 15%;
-  width: 70%;
-  height: 100%;
-}
-
-.PredDataLeft {
-  float: left;
-  padding-left: 5%;
-}
-
-.TerrorState {
-}
-.TerrorState #icon {
-  max-height: 100%;
-  max-width: 100%;
+  margin-left: 10%;
+  margin-right: 30%;
+  width: 60%;
+  padding: 1%;
 }
 
 .PredDataRight {
   float: right;
+  padding: 3%;
+  margin-top: 10%;
+  color: dimgray;
+  background-color: white;
+  border: 1px solid gainsboro;
+  width: 45%;
 }
 .ParamList {
   float: right;
   height: auto;
-  width: 100%;
+  width: 97%;
 }
 .ParamList .row {
   width: 100%;
-  height: 60px;
+  height: 30px;
   list-style: none;
   margin: 0;
   display: flex;
   flex-direction: row;
-  color: black;
   justify-content: center;
   align-items: center;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -67,4 +57,45 @@
 
 .ParamList .row #val {
   flex: 20%;
+}
+
+.PredTitle {
+  color: turquoise;
+  font-size: 25px;
+}
+
+.PredData #Acc {
+  font-size: 60px;
+}
+
+.ModelView {
+  border: 1px solid gainsboro;
+  background-color: white;
+  color: #696969;
+  height: 99%;
+  width: 80%;
+  padding: 1%;
+}
+
+.ModelsDiv {
+  padding: 3%;
+}
+
+.AccDiv {
+  padding: 3%;
+}
+
+.predDiv {
+  float: right;
+}
+
+.PredLeft {
+  float: left;
+  width: 45%;
+}
+.predTitle {
+}
+.Container {
+  background-color: blue;
+  height: 100%;
 }
