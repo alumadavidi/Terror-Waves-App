@@ -13,7 +13,6 @@ class Container extends Component {
     this.setState({ isLogin: toSet });
   };
   getLogin = () => {
-    console.log(",,", this.state.isLogin);
     return this.state.isLogin;
   };
 

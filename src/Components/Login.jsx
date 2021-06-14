@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
+import axios from "axios";
 
 class Login extends Component {
   state = {
@@ -19,12 +20,20 @@ class Login extends Component {
   };
 
   handleLogin = (propFunc) => {
-    if (
-      this.state.userName === this.state.inputUser &&
-      this.state.password === this.state.inputPsw
-    ) {
-      propFunc();
-    }
+    let obj = {
+      username: `${this.state.inputUser}`,
+      password: `${this.state.inputPsw}`,
+    };
+
+    axios
+      .post("/login", obj)
+      .then((res) => {
+        console.log(res.status);
+        if (res.status === 200) {
+          propFunc();
+        }
+      })
+      .catch((error) => {});
   };
 
   handleLogout = (propFunc) => {
@@ -34,7 +43,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log("ll", this.props.isLogin());
     if (this.props.isLogin()) {
       return (
         <div className="login">
