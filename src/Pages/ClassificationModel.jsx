@@ -180,4 +180,5 @@ class ClassificationModel extends Component {
 		);
     }
 }
+
 export default ClassificationModel;
