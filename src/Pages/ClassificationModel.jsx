@@ -7,11 +7,22 @@ class ClassificationModel extends Component {
 	constructor() {
 		super();
 		this.updateCharts = this.updateCharts.bind(this);
+		this.toggleWeatherDataSeries = this.toggleWeatherDataSeries.bind(this);
 	}
 
 	updateCharts(e) {
 		alert("Date: " + e.dataPoint.x);
 		this.weather_chart.options.data[0].dataPoints.push({ x: new Date("2019- 01- 01"), y: [19, 26] })
+		this.weather_chart.render();
+	}
+
+	toggleWeatherDataSeries(e){
+		if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+			e.dataSeries.visible = false;
+		}
+		else {
+			e.dataSeries.visible = true;
+		}
 		this.weather_chart.render();
 	}
 
@@ -27,8 +38,8 @@ class ClassificationModel extends Component {
 		return dps;
 	}
 
-	// Get weather data of the 30 days before the selected date
-	getWeatherDataPoints(date) {
+	// Get temperature data of the 30 days before the selected date
+	getTemperatureDataPoints(date) {
 		var dps = [
 			{ x: new Date("2017- 01- 01"), y: [19, 26] },
 			{ x: new Date("2017- 02- 01"), y: [19, 26] },
@@ -54,6 +65,36 @@ class ClassificationModel extends Component {
 			{ x: new Date("2018- 10- 01"), y: [14, 22] },
 			{ x: new Date("2018- 11- 01"), y: [16, 24] },
 			{ x: new Date("2018- 12- 01"), y: [18, 26] }
+		]
+		return dps;
+	}
+
+	getPrecipitationDataPoints(date) {
+		var dps = [
+			{ x: new Date("2017- 01- 01"), y: 0 },
+			{ x: new Date("2017- 02- 01"), y: 0 },
+			{ x: new Date("2017- 03- 01"), y: 0 },
+			{ x: new Date("2017- 04- 01"), y: 3.4 },
+			{ x: new Date("2017- 05- 01"), y: 1 },
+			{ x: new Date("2017- 06- 01"), y: 4 },
+			{ x: new Date("2017- 07- 01"), y: 0 },
+			{ x: new Date("2017- 08- 01"), y: 0 },
+			{ x: new Date("2017- 09- 01"), y: 0 },
+			{ x: new Date("2017- 10- 01"), y: 1.2 },
+			{ x: new Date("2017- 11- 01"), y: 1.5 },
+			{ x: new Date("2017- 12- 01"), y: 0 },
+			{ x: new Date("2018- 01- 01"), y: 0 },
+			{ x: new Date("2018- 02- 01"), y: 0 },
+			{ x: new Date("2018- 03- 01"), y: 0 },
+			{ x: new Date("2018- 04- 01"), y: 0 },
+			{ x: new Date("2018- 05- 01"), y: 0 },
+			{ x: new Date("2018- 06- 01"), y: 0 },
+			{ x: new Date("2018- 07- 01"), y: 0 },
+			{ x: new Date("2018- 08- 01"), y: 0 },
+			{ x: new Date("2018- 09- 01"), y: 0 },
+			{ x: new Date("2018- 10- 01"), y: 0 },
+			{ x: new Date("2018- 11- 01"), y: 0 },
+			{ x: new Date("2018- 12- 01"), y: 0 }
 		]
 		return dps;
 	}
@@ -99,20 +140,57 @@ class ClassificationModel extends Component {
 			title: {
 				text: "Weather",
 				fontFamily: "Candara",
+				fontWeight: "bold",
                 fontSize: 20,
 			},
 			axisY: {
 				title: "Temperature (°C)",
-				fontFamily: "Candara",
+				titleFontFamily: "Candara",
+				titleFontWeight: "bold",
+				titleFontColor: "#6D78AD",
+				lineColor: "#6D78AD",
+				labelFontColor: "#6D78AD",
+				tickColor: "#6D78AD",
 				includeZero: true,
-				suffix: " °C"
+				suffix: "°C"
+			},
+			axisY2: {
+				title: "Precipitation (cm)",
+				titleFontFamily: "Candara",
+				titleFontWeight: "bold",
+				titleFontColor: "#51CDA0",
+				lineColor: "#51CDA0",
+				labelFontColor: "#51CDA0",
+				tickColor: "#51CDA0",
+				includeZero: true,
+				suffix: " cm"
+			},
+			toolTip: {
+				shared: true,
+				fontFamily: "Candara"
+			},
+			legend: {
+				fontFamily: "Candara",
+				cursor: "pointer",
+				itemclick: this.toggleWeatherDataSeries
 			},
 			data: [{
 				type: "rangeColumn",
+				name: "Temperature",
+				showInLegend: true,
 				indexLabel: "{y[#index]}°",
 				xValueFormatString: "MMM YYYY",
-				toolTipContent: "<strong>{x}</strong></br> Max: {y[1]} °C<br/> Min: {y[0]} °C",
-				dataPoints: this.getWeatherDataPoints(2019)
+				toolTipContent: "<strong>{x}</strong></br> Max Temperature: {y[1]}°C<br/> Min Temperature: {y[0]}°C",
+				dataPoints: this.getTemperatureDataPoints(2019)
+			},
+			{
+				type: "line",
+				name: "Precipitation",
+				axisYType: "secondary",
+				showInLegend: true,
+				xValueFormatString: "MMM YYYY",
+				toolTipContent: "Precipitation: {y} cm",
+				dataPoints: this.getPrecipitationDataPoints(2019)
 			}]
 		}
 
@@ -132,14 +210,17 @@ class ClassificationModel extends Component {
 				title: "Temperature (°C)",
 				fontFamily: "Candara",
 				includeZero: true,
-				suffix: " °C"
+				suffix: "°C"
+			},
+			toolTip: {
+				fontFamily: "Candara"
 			},
 			data: [{
 				type: "rangeColumn",
 				indexLabel: "{y[#index]}°",
 				xValueFormatString: "MMM YYYY",
-				toolTipContent: "<strong>{x}</strong></br> Max: {y[1]} °C<br/> Min: {y[0]} °C",
-				dataPoints: this.getWeatherDataPoints(2019)
+				toolTipContent: "<strong>{x}</strong></br> Max: {y[1]}°C<br/> Min: {y[0]}°C",
+				dataPoints: this.getTemperatureDataPoints(2019)
 			}]
 		}
         
@@ -163,9 +244,9 @@ class ClassificationModel extends Component {
 
 
 
-			<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-				<CanvasJSChart options = {weather}
-				onRef={ref => this.weather_chart = ref}
+			<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+				<CanvasJSChart options = {holidays}
+				onRef={ref => this.holidays_chart = ref}
 				/>
 			</div>
 			<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
