@@ -7,23 +7,36 @@ class ClassificationModel extends Component {
 	constructor() {
 		super();
 		this.updateCharts = this.updateCharts.bind(this);
-		this.toggleWeatherDataSeries = this.toggleWeatherDataSeries.bind(this);
+		this.toggleDataSeries = this.toggleDataSeries.bind(this);
 	}
 
 	updateCharts(e) {
 		alert("Date: " + e.dataPoint.x);
 		this.weather_chart.options.data[0].dataPoints.push({ x: new Date("2019- 01- 01"), y: [19, 26] })
+
 		this.weather_chart.render();
+		this.holidays_chart.render();
+		this.google_trends_israel_chart.render();
+		this.google_trends_palestine_chart.render();
 	}
 
-	toggleWeatherDataSeries(e){
+	toggleDataSeries(e) {
 		if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
 			e.dataSeries.visible = false;
 		}
 		else {
 			e.dataSeries.visible = true;
 		}
-		this.weather_chart.render();
+
+		if (e.chart.title.text === "Weather") {
+			this.weather_chart.render();
+		}
+		else if (e.chart.title.text === "Google Trends - Israel") {
+			this.google_trends_israel_chart.render();
+		}
+		else if (e.chart.title.text === "Google Trends - Palestine") {
+			this.google_trends_palestine_chart.render();
+		}
 	}
 
 	getModelDataPoints(year) {
@@ -99,6 +112,24 @@ class ClassificationModel extends Component {
 		return dps;
 	}
 
+	getGoogleTrendsDataPoints(date, country) {
+		if (country === "Israel") {
+
+		} else {
+
+		}
+
+		var dps = []
+		var year = 2019
+		var month = 2
+		var day, value
+		for (day = 1; day <= 30; day++) {
+			value = Math.floor(Math.random() * 100);
+			dps.push({x: new Date(year, month, day), y: value})
+		}
+		return dps;
+	}
+
 	getHolidaysDataPoints(date) {
 		var dps = []
 		return dps;
@@ -109,7 +140,7 @@ class ClassificationModel extends Component {
 			height: 350,
 			animationEnabled: true,
 			exportEnabled: true,
-			exportFileName: "ClassificationModelGraph",
+			exportFileName: "Classification_Model_Graph",
 			zoomEnabled: true,
 			theme: "light2",
 			title: {
@@ -133,7 +164,7 @@ class ClassificationModel extends Component {
 		const weather = {
 			height: 200,
 			exportEnabled: true,
-			exportFileName: "WeatherGraph",
+			exportFileName: "Weather_Graph",
 			animationEnabled: true,
 			zoomEnabled: true,
 			theme: "light2",
@@ -172,7 +203,7 @@ class ClassificationModel extends Component {
 			legend: {
 				fontFamily: "Candara",
 				cursor: "pointer",
-				itemclick: this.toggleWeatherDataSeries
+				itemclick: this.toggleDataSeries
 			},
 			data: [{
 				type: "rangeColumn",
@@ -191,6 +222,146 @@ class ClassificationModel extends Component {
 				xValueFormatString: "MMM YYYY",
 				toolTipContent: "Precipitation: {y} cm",
 				dataPoints: this.getPrecipitationDataPoints(2019)
+			}]
+		}
+
+		const googleTrendsIsrael = {
+			height: 200,
+			exportEnabled: true,
+			exportFileName: "Google_Trends_Israel_Graph",
+			animationEnabled: true,
+			zoomEnabled: true,
+			theme: "light2",
+			title: {
+				text: "Google Trends - Israel",
+				fontFamily: "Candara",
+				fontWeight: "bold",
+                fontSize: 20,
+			},
+			axisY: {
+				title: "Value",
+				titleFontFamily: "Candara",
+				titleFontWeight: "bold",
+				includeZero: true
+			},
+			toolTip: {
+				shared: false,
+				fontFamily: "Candara",
+				content: "<strong>{x}</strong></br> Word: {name}</br> Value: {y}"
+			},
+			legend: {
+				fontFamily: "Candara",
+				fontSize: 12,
+				horizontalAlign: "center",
+       			verticalAlign: "top",
+				cursor: "pointer",
+				itemclick: this.toggleDataSeries
+			},
+			data: [
+			{
+				type: "line",
+				name: "شهادة",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Israel")
+			},
+			{
+				type: "line",
+				name: "استشهاد",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Israel")
+			},
+			{
+				type: "line",
+				name: "شهيد",
+				visible: true,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Israel")
+			},
+			{
+				type: "line",
+				name: "جهاد",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Israel")
+			},
+			{
+				type: "line",
+				name: "كافر",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Israel")
+			}]
+		}
+
+		const googleTrendsPalestine = {
+			height: 200,
+			exportEnabled: true,
+			exportFileName: "GoogleTrendsPalestineGraph",
+			animationEnabled: true,
+			zoomEnabled: true,
+			theme: "light2",
+			title: {
+				text: "Google Trends - Palestine",
+				fontFamily: "Candara",
+				fontWeight: "bold",
+                fontSize: 20,
+			},
+			axisY: {
+				title: "Value",
+				titleFontFamily: "Candara",
+				titleFontWeight: "bold",
+				includeZero: true
+			},
+			toolTip: {
+				shared: false,
+				fontFamily: "Candara",
+				content: "<strong>{x}</strong></br> Word: {name}</br> Value: {y}"
+			},
+			legend: {
+				fontFamily: "Candara",
+				fontSize: 12,
+				horizontalAlign: "center",
+       			verticalAlign: "top",
+				cursor: "pointer",
+				itemclick: this.toggleDataSeries
+			},
+			data: [
+			{
+				type: "line",
+				name: "شهادة",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Palestine")
+			},
+			{
+				type: "line",
+				name: "استشهاد",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Palestine")
+			},
+			{
+				type: "line",
+				name: "شهيد",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Palestine")
+			},
+			{
+				type: "line",
+				name: "جهاد",
+				visible: false,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Palestine")
+			},
+			{
+				type: "line",
+				name: "كافر",
+				visible: true,
+				showInLegend: true,
+				dataPoints: this.getGoogleTrendsDataPoints(2019, "Palestine")
 			}]
 		}
 
@@ -241,22 +412,16 @@ class ClassificationModel extends Component {
 				onRef={ref => this.holidays_chart = ref}
 				/>
 			</div>
-
-
-
-			<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-				<CanvasJSChart options = {holidays}
-				onRef={ref => this.holidays_chart = ref}
+			<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+				<CanvasJSChart options = {googleTrendsIsrael}
+				onRef={ref => this.google_trends_israel_chart = ref}
 				/>
 			</div>
-			<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
-				<CanvasJSChart options = {holidays}
-				onRef={ref => this.holidays_chart = ref}
+			<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+				<CanvasJSChart options = {googleTrendsPalestine}
+				onRef={ref => this.google_trends_palestine_chart = ref}
 				/>
 			</div>
-
-
-
 		</div>
 		);
     }
