@@ -7,22 +7,30 @@ body {
   margin: 0;
   padding: 0;
   background-color: lavender;
+  overflow-x: hidden;
 }
 
 .Title {
-  height: 10%;
+  height: 65px;
   width: 100%;
   background-color: black;
+  position: fixed;
+
+  z-index: 100;
 }
 
 .Sidebar {
+  margin-top: 65px;
   background-color: #2f4050;
-  height: 100%;
+  height: calc(100vh - 65px);
   width: 22%;
   float: left;
+  position: fixed;
 }
 
 .Page {
+  padding: 1%;
+
   margin-left: 22%;
   height: 90%;
   width: 78%;
