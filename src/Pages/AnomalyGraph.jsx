@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import React, { Component } from "react";
 import CanvasJSReact from "../canvasjs.stock.react";
 import "../Pages.css";
+=======
+import React, { Component } from 'react';
+import CanvasJSReact from '../canvasjs/canvasjs.stock.react';
+>>>>>>> 33db6e54c62fb90322c9de7fbd655a0036312b54
 
 var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
@@ -127,6 +132,7 @@ class AnomalyGraph extends Component {
         >
           <CanvasJSStockChart options={anomaly} />
         </div>
+        
         <table
           id="information_table"
           style={{
