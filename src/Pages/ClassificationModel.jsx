@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CanvasJSReact from '../canvasjs/canvasjs.react';
+import ModelHeatmap from "../Components/ModelHeatmap";
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -496,40 +497,52 @@ class ClassificationModel extends Component {
 		}
         
 		return (
-		<div id = "classification_charts">
-			<div id = "model_chart" style= {{display: 'inline-block', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: "5px", paddingBottom: "5px"}}>
-				<CanvasJSChart options = {classification_model}
-				onRef={ref => this.model_chart = ref}
-				/>
-			</div>
-			<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-				<CanvasJSChart options = {weather}
-				onRef={ref => this.weather_chart = ref}
-				/>
-			</div>
-			<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
-				<CanvasJSChart options = {attacks}
-				onRef={ref => this.attacks_chart = ref}
-				/>
-			</div>
-			<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-				<CanvasJSChart options = {googleTrendsIsrael}
-				onRef={ref => this.google_trends_israel_chart = ref}
-				/>
-			</div>
-			<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
-				<CanvasJSChart options = {googleTrendsPalestine}
-				onRef={ref => this.google_trends_palestine_chart = ref}
-				/>
-			</div>
+			<div id = "classification_charts">
+				<div id = "model_chart" style= {{display: 'inline-block', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: "5px", paddingBottom: "5px"}}>
+					<CanvasJSChart options = {classification_model}
+					onRef={ref => this.model_chart = ref}
+					/>
+				</div>
 
 
-			<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-				<CanvasJSChart options = {holidays}
-				onRef={ref => this.holidays_chart = ref}
-				/>
+				{/*
+				<div id = "model_heatmap" style= {{display: 'inline-block', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: "5px", paddingBottom: "5px"}}>
+					<ModelHeatmap
+					onRef={ref => this.model_heatmap = ref}
+					/>
+				</div>
+				*/}
+
+
+
+				<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+					<CanvasJSChart options = {weather}
+					onRef={ref => this.weather_chart = ref}
+					/>
+				</div>
+				<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+					<CanvasJSChart options = {attacks}
+					onRef={ref => this.attacks_chart = ref}
+					/>
+				</div>
+				<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+					<CanvasJSChart options = {googleTrendsIsrael}
+					onRef={ref => this.google_trends_israel_chart = ref}
+					/>
+				</div>
+				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+					<CanvasJSChart options = {googleTrendsPalestine}
+					onRef={ref => this.google_trends_palestine_chart = ref}
+					/>
+				</div>
+
+
+				<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+					<CanvasJSChart options = {holidays}
+					onRef={ref => this.holidays_chart = ref}
+					/>
+				</div>
 			</div>
-		</div>
 		);
     }
 }
