@@ -8,26 +8,26 @@ export const SidebarData = [
   {
     title: "Home",
     icon: <HomeIcon />,
-    link: "/",
+    link: "/"
   },
   {
     title: "Predictions",
     icon: <TrendingUpIcon />,
-    link: "/prediction",
+    link: "/prediction"
   },
   {
     title: "Classification Model",
     icon: <InsertChartIcon />,
-    link: "/classification-model",
-  },
-  {
-    title: "Regression Model",
-    icon: <InsertChartIcon />,
-    link: "/regression-model",
+    link: "/classification-model"
   },
   {
     title: "Anomaly Graph",
     icon: <MailIcon />,
-    link: "/anomaly-graph",
+    link: "/anomaly-graph"
   },
+  {
+    title: "Terror Waves Information",
+    icon: <InsertChartIcon />,
+    link: "/terror-waves-information"
+  }
 ];

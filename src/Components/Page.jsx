@@ -5,7 +5,7 @@ import Home from "../Pages/HomePage";
 import AnomalyGraph from "../Pages/AnomalyGraph";
 import ClassificationModel from "../Pages/ClassificationModel";
 import Prediction from "../Pages/Prediction";
-import RegressionModel from "../Pages/RegressionModel";
+import TerrorWavesInformation from "../Pages/TerrorWavesInformation";
 
 class Page extends Component {
   state = {};
@@ -27,12 +27,9 @@ class Page extends Component {
               )}
             />
             <Route path="/anomaly-graph" component={AnomalyGraph} />
-            <Route
-              path="/classification-model"
-              component={ClassificationModel}
-            />
-            <Route path="/regression-model" component={RegressionModel} />
+            <Route path="/classification-model" component={ClassificationModel} />
             <Route path="/prediction" component={Prediction} />
+            <Route path="/terror-waves-information" component={TerrorWavesInformation} />
           </Switch>
         </Router>
       </div>
