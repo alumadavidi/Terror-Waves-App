@@ -52,6 +52,7 @@ class ModelHeatmap extends Component {
                         </Tooltip>
                         );
                     }}
+                    onRef={ref => this.model_heatmap = ref}
                 />
             </div>
         );
