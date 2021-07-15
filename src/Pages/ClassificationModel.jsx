@@ -338,7 +338,7 @@ class ClassificationModel extends Component {
 				text: "Google Trends - Israel",
 				fontFamily: "Candara",
 				fontWeight: "bold",
-                fontSize: 20,
+                fontSize: 20
 			},
 			axisY: {
 				title: "Value",
@@ -498,46 +498,37 @@ class ClassificationModel extends Component {
         
 		return (
 			<div id = "classification_charts">
-				<div id = "model_chart" style= {{display: 'inline-block', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: "5px", paddingBottom: "5px"}}>
-					<CanvasJSChart options = {classification_model}
-					onRef={ref => this.model_chart = ref}
-					/>
-				</div>
-
-
-				{/*
-				<div id = "model_heatmap" style= {{display: 'inline-block', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: "5px", paddingBottom: "5px"}}>
+				<div id = "model_heatmap" style= {{display: 'inline-block', background: 'white', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
+					<div id = "model_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 25, paddingBottom: '15px'}}>
+						Classification Model
+					</div>
 					<ModelHeatmap
 					onRef={ref => this.model_heatmap = ref}
 					/>
 				</div>
-				*/}
-
-
-
-				<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+				<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
 					<CanvasJSChart options = {weather}
 					onRef={ref => this.weather_chart = ref}
 					/>
 				</div>
-				<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+				<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
 					<CanvasJSChart options = {attacks}
 					onRef={ref => this.attacks_chart = ref}
 					/>
 				</div>
-				<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+				<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
 					<CanvasJSChart options = {googleTrendsIsrael}
 					onRef={ref => this.google_trends_israel_chart = ref}
 					/>
 				</div>
-				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
 					<CanvasJSChart options = {googleTrendsPalestine}
 					onRef={ref => this.google_trends_palestine_chart = ref}
 					/>
 				</div>
 
 
-				<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', paddingTop: '5px', paddingBottom: '5px', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+				<div id = "holidays_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
 					<CanvasJSChart options = {holidays}
 					onRef={ref => this.holidays_chart = ref}
 					/>
