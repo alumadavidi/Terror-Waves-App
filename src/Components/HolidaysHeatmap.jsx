@@ -34,8 +34,8 @@ class HolidaysHeatmap extends Component {
                     rectSize = {16}
                     width = {140}
                     panelColors= {{
-                        0: '#e6d0ea',
-                        1: '#974ca4'
+                        0: '#f2dbdb',
+                        1: '#ff7779'
                       }}
                     legendCellSize = {0}
                     startDate = {this.state.startDate}
