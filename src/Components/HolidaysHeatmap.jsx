@@ -34,8 +34,8 @@ class HolidaysHeatmap extends Component {
                     rectSize = {16}
                     width = {140}
                     panelColors= {{
-                        0: '#e1bee7',
-                        1: '#ad40bf'
+                        0: '#e6d0ea',
+                        1: '#974ca4'
                       }}
                     legendCellSize = {0}
                     startDate = {this.state.startDate}
@@ -45,7 +45,7 @@ class HolidaysHeatmap extends Component {
                             <Tooltip
                                 key={props.key}
                                 placement="top"
-                                content={<span>Date: {data.date}<br></br>{data.count >= 1 ? 'Holidays:\n' : ''}</span>}>
+                                content={<span>Date: {data.date}<br></br>Holidays: {data.count >= 1 ? 'V' : 'X'}</span>}>
                                 <rect {...props}/>
                             </Tooltip>                            
                         );

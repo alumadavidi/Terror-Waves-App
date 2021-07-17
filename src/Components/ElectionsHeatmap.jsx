@@ -29,7 +29,7 @@ class ElectionsHeatmap extends Component {
                     rectSize = {16}
                     width = {140}
                     panelColors= {{
-                        0: '#b2dfdb',
+                        0: '#cce8e6',
                         1: '#009688'
                       }}
                     legendCellSize = {0}

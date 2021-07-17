@@ -70,13 +70,13 @@ class ClassificationModel extends Component {
 					<div id = "special_days_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
 						Special Days
 					</div>
-					<div id = "holidays_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '30px', marginRight: '100px'}}>
+					<div id = "holidays_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px', marginRight: '45px'}}>
 						Holidays
 						<HolidaysHeatmap
 							date = {this.state.date}
 						/>
 					</div>
-					<div id = "elections_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px'}}>
+					<div id = "elections_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px'}}>
 						Elections
 						<ElectionsHeatmap
 							date = {this.state.date}
