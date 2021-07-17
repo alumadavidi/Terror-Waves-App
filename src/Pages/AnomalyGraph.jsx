@@ -7,8 +7,8 @@ class AnomalyGraph extends Component {
   constructor() {
     super();
     this.state = {
-      city: null,
-      attackInformation: null,
+      city: [],
+      attackInformation: [],
     };
     this.getAttackInformation = this.getAttackInformation.bind(this);
   }
@@ -16,8 +16,8 @@ class AnomalyGraph extends Component {
   getAttackInformation(e) {
     alert("Date: " + e.dataPoint.x);
     this.setState({
-      city: "Jerusalem",
-      attackInformation: "Suicide bombing",
+      city: ["Jerusalem", "Tel-Aviv"],
+      attackInformation: ["Suicide bombing", "Stabbing attack"],
     });
   }
 
@@ -35,6 +35,12 @@ class AnomalyGraph extends Component {
   }
 
   render() {
+    // Arrange the attacks information in a table
+    const attacks = []
+    for (var i=0; i < this.state.city.length; i++) {
+      attacks.push(<tr><td>{this.state.city[i]}</td><td>{this.state.attackInformation[i]}</td></tr>)
+    }
+
     const anomaly = {
       height: 390,
       title: {
@@ -132,8 +138,8 @@ class AnomalyGraph extends Component {
           style={{
             fontFamily: "candara",
             textAlign: "center",
-            fontSize: "50%",
-            width: "70%",
+            fontSize: "12",
+            width: "80%",
             border: "1px solid black",
           }}
         >
@@ -141,14 +147,7 @@ class AnomalyGraph extends Component {
             <th>City</th>
             <th>Attack Information</th>
           </tr>
-          <tr>
-            <td>{this.state.city}</td>
-            <td>{this.state.attackInformation}</td>
-          </tr>
-          <tr>
-            <td>{this.state.city}</td>
-            <td>{this.state.attackInformation}</td>
-          </tr>
+          {attacks}
         </table>
       </div>
     );
