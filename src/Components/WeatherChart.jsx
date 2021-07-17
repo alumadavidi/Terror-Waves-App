@@ -20,7 +20,8 @@ class WeatherChart extends Component {
 	}
 
     // Get temperature data of the 30 days before the selected date
-    getTemperatureDataPoints(date) {
+    getTemperatureDataPoints() {
+        var date = this.props.date;
         var dps = [
             { x: new Date("2019- 01- 01"), y: [19, 26] },
             { x: new Date("2019- 01- 02"), y: [19, 26] },
@@ -56,7 +57,8 @@ class WeatherChart extends Component {
         return dps;
     }
 
-    getPrecipitationDataPoints(date) {
+    getPrecipitationDataPoints() {
+        var date = this.props.date;
         var dps = [
             { x: new Date("2019- 01- 01"), y: 0},
             { x: new Date("2019- 01- 02"), y: 0 },
@@ -143,7 +145,7 @@ class WeatherChart extends Component {
 				showInLegend: true,
 				indexLabel: "{y[#index]}°",
 				toolTipContent: "<strong>{x}</strong></br> Max Temperature: {y[1]}°C<br/> Min Temperature: {y[0]}°C",
-				dataPoints: this.getTemperatureDataPoints(2019)
+				dataPoints: this.getTemperatureDataPoints()
 			},
 			{
 				type: "line",
@@ -151,7 +153,7 @@ class WeatherChart extends Component {
 				axisYType: "secondary",
 				showInLegend: true,
 				toolTipContent: "Precipitation: {y} cm",
-				dataPoints: this.getPrecipitationDataPoints(2019)
+				dataPoints: this.getPrecipitationDataPoints()
 			}]
 		}
 

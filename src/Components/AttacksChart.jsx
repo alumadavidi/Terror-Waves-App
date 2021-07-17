@@ -19,7 +19,9 @@ class AttacksChart extends Component {
         this.attacks_chart.render();
 	}
 
-    getNumAttacksDataPoints(date) {
+    getNumAttacksDataPoints() {
+		var date = this.props.date;
+
 		var dps = []
 		var year = 2019
 		var month = 1
@@ -31,7 +33,9 @@ class AttacksChart extends Component {
 		return dps;
 	}
 
-	getNumDeathsDataPoints(date) {
+	getNumDeathsDataPoints() {
+		var date = this.props.date;
+
 		var dps = []
 		var year = 2019
 		var month = 1
@@ -43,7 +47,9 @@ class AttacksChart extends Component {
 		return dps;
 	}
 
-	getNumWoundedDataPoints(date) {
+	getNumWoundedDataPoints() {
+		var date = this.props.date;
+
 		var dps = []
 		var year = 2019
 		var month = 1
@@ -89,21 +95,21 @@ class AttacksChart extends Component {
 				name: "Attacks",
 				showInLegend: true,
 				toolTipContent: "<strong>{x}</strong></br> Attacks: {y}",
-				dataPoints: this.getNumAttacksDataPoints(2019)
+				dataPoints: this.getNumAttacksDataPoints()
 			},
 			{
 				type: "column",
 				name: "Deaths",
 				showInLegend: true,
 				toolTipContent: "Deaths: {y}",
-				dataPoints: this.getNumDeathsDataPoints(2019)
+				dataPoints: this.getNumDeathsDataPoints()
 			},
 			{
 				type: "column",
 				name: "Wounded",
 				showInLegend: true,
 				toolTipContent: "Wounded: {y}",
-				dataPoints: this.getNumWoundedDataPoints(2019)
+				dataPoints: this.getNumWoundedDataPoints()
 			}]
 		}
 

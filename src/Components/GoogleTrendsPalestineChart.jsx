@@ -19,7 +19,9 @@ class GoogleTrendsPalestineChart extends Component {
         this.google_trends_palestine_chart.render();
 	}
 
-	getGoogleTrendsPalestineDataPoints(date, word) {
+	getGoogleTrendsPalestineDataPoints(word) {
+		var date = this.props.date;
+
 		var dps = []
 		var year = 2019
 		var month = 1
@@ -70,35 +72,35 @@ class GoogleTrendsPalestineChart extends Component {
 				name: "شهادة",
 				visible: false,
 				showInLegend: true,
-				dataPoints: this.getGoogleTrendsPalestineDataPoints(2019, "شهادة")
+				dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 			},
 			{
 				type: "line",
 				name: "استشهاد",
 				visible: false,
 				showInLegend: true,
-				dataPoints: this.getGoogleTrendsPalestineDataPoints(2019, "استشهاد")
+				dataPoints: this.getGoogleTrendsPalestineDataPoints("استشهاد")
 			},
 			{
 				type: "line",
 				name: "شهيد",
 				visible: false,
 				showInLegend: true,
-				dataPoints: this.getGoogleTrendsPalestineDataPoints(2019, "شهيد")
+				dataPoints: this.getGoogleTrendsPalestineDataPoints("شهيد")
 			},
 			{
 				type: "line",
 				name: "جهاد",
 				visible: false,
 				showInLegend: true,
-				dataPoints: this.getGoogleTrendsPalestineDataPoints(2019, "جهاد")
+				dataPoints: this.getGoogleTrendsPalestineDataPoints("جهاد")
 			},
 			{
 				type: "line",
 				name: "كافر",
 				visible: true,
 				showInLegend: true,
-				dataPoints: this.getGoogleTrendsPalestineDataPoints(2019, "كافر")
+				dataPoints: this.getGoogleTrendsPalestineDataPoints("كافر")
 			}]
 		}
 

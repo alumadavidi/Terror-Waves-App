@@ -45,10 +45,15 @@ class ModelHeatmap extends Component {
                     endDate = {this.state.endDate}
                     rectRender = {(props, data) => {
                         return (
-                        <Tooltip key={props.key} placement="top" content={<span>Date: {data.date}<br></br>Prediction: {data.count === 1 ? 'V' : 'X'}</span>}>
+                        <Tooltip
+                            key={props.key}
+                            placement="top"
+                            content={<span>Date: {data.date}<br></br>Prediction: {data.count === 1 ? 'V' : 'X'}</span>}>
                             <rect {...props} onClick={() => {
-                                alert("Date: " + data.date);
-                            }} />
+                                alert("Heatmap\nDate: " + data.date);
+                                this.props.updateCharts(data.date)
+                                }}
+                            />
                         </Tooltip>
                         );
                     }}
