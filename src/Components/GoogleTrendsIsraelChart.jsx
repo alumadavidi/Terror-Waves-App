@@ -36,8 +36,8 @@ class GoogleTrendsIsraelChart extends Component {
     render() {
         const googleTrendsIsrael = {
 			height: 200,
-			exportEnabled: true,
-			exportFileName: "Google_Trends_Israel_Graph",
+			//exportEnabled: true,
+			//exportFileName: "Google_Trends_Israel_Graph",
 			animationEnabled: true,
 			zoomEnabled: true,
 			theme: "light2",
