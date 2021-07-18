@@ -12,7 +12,9 @@ class ModelHeatmap extends Component {
         };
       }
 
-    getModelDataPoints(year) {
+    getModelDataPoints() {
+        var year = this.props.year;
+
         var dps = [
             { date: '2016/01/01', count: 1 },
             { date: '2016/01/11', count: 1 },
@@ -33,7 +35,7 @@ class ModelHeatmap extends Component {
         return (
             <div>
                 <HeatMap
-                    value = {this.getModelDataPoints(2016)}
+                    value = {this.getModelDataPoints()}
                     rectSize = {14}
                     width = {890}
                     panelColors= {{
@@ -51,6 +53,7 @@ class ModelHeatmap extends Component {
                             content={<span>Date: {data.date}<br></br>Prediction: {data.count === 1 ? 'V' : 'X'}</span>}>
                             <rect {...props} onClick={() => {
                                 alert("Heatmap\nDate: " + data.date);
+                                alert("Heatmap\nYear: " + this.props.year);
                                 this.props.updateCharts(data.date)
                                 }}
                             />

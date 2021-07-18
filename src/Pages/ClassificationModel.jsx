@@ -6,45 +6,66 @@ import GoogleTrendsIsraelChart from '../Components/GoogleTrendsIsraelChart';
 import GoogleTrendsPalestineChart from '../Components/GoogleTrendsPalestineChart';
 import HolidaysHeatmap from '../Components/HolidaysHeatmap';
 import ElectionsHeatmap from '../Components/ElectionsHeatmap';
+import YearPicker from '../Components/YearPicker';
 
 
 class ClassificationModel extends Component {
 	constructor() {
 		super();
 		this.state = {
-			date: new Date(("2019- 01- 01"))
+			year: 2019,
+			date: "2019/01/01"
 		}
+		this.updateModel = this.updateModel.bind(this);
 		this.updateCharts = this.updateCharts.bind(this);
 	}
 
+	updateModel(selectedYear) {
+		alert("Model Page\nYear: " + selectedYear);
+		this.setState({
+			year: selectedYear
+		});
+	}
+	
 	updateCharts(selectedDate) {
 		alert("Model Page\nDate: " + selectedDate);	
 		this.setState({
 			date: selectedDate
 		});
-		//alert("Page\nDate: " + this.state.date);
-		
-
-		/*
-		this.weather_chart.render();
-		this.attacks_chart.render();
-		this.google_trends_israel_chart.render();
-		this.google_trends_palestine_chart.render();
-		this.holidays_chart.render();
-		*/
 	}
 
-
-    render() {         
+    render() {
 		return (
 			<div id = "classification_charts">
 				<div id = "model_heatmap" style= {{fontFamily: 'Candara', fontWeight: 'bold', display: 'inline-block', background: 'white', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
-					<div id = "model_header" style= {{fontSize: 25, paddingBottom: '15px'}}>
+					<div id = "model_header" style= {{fontSize: 25}}>
 						Classification Model
+					</div>
+					<div id = "year_picker">
+						<div style= {{float: 'left', fontSize: 16, paddingLeft: '15px', paddingRight: '15px', paddingTop: '9px'}}>
+							Year: 
+						</div>
+						<div style= {{float: 'left', fontSize: 14, width: '12%', paddingBottom: '8px', marginRight: '60%'}}>
+							<YearPicker
+								updateModel = {this.updateModel}
+							/>
+						</div>
+					</div>
+					<div style= {{float: 'left', fontSize: 15, paddingTop: '9px', textAlign: 'left'}}>
+						<div style= {{float: 'left'}}>
+							Selected Date: 
+						</div>
+						<div style= {{float: 'left', paddingLeft: '5px', paddingBottom: '10px', color: '#f43e3a'}}>
+							{this.state.date}
+						</div>
 					</div>
 					<ModelHeatmap
 						updateCharts = {this.updateCharts}
+						year = {this.state.year}
 					/>
+				</div>
+				<div style= {{fontFamily: 'Candara', fontSize: 18, fontWeight: 'bold', paddingLeft: '15px', paddingRight: '15px', paddingBottom: '10px'}}>
+					Data of the 30 days before the selected date
 				</div>
 				<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
 					<WeatherChart
