@@ -21,7 +21,9 @@ class WeatherChart extends Component {
 
     // Get temperature data of the 30 days before the selected date
     getTemperatureDataPoints() {
-        var date = this.props.date;
+        var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
+
         var dps = [
             { x: new Date("2019- 01- 01"), y: [19, 26] },
             { x: new Date("2019- 01- 02"), y: [19, 26] },
@@ -58,7 +60,9 @@ class WeatherChart extends Component {
     }
 
     getPrecipitationDataPoints() {
-        var date = this.props.date;
+        var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
+        
         var dps = [
             { x: new Date("2019- 01- 01"), y: 0},
             { x: new Date("2019- 01- 02"), y: 0 },

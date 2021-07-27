@@ -20,7 +20,8 @@ class AttacksChart extends Component {
 	}
 
     getNumAttacksDataPoints() {
-		var date = this.props.date;
+		var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
 
 		var dps = []
 		var year = 2019
@@ -34,7 +35,8 @@ class AttacksChart extends Component {
 	}
 
 	getNumDeathsDataPoints() {
-		var date = this.props.date;
+		var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
 
 		var dps = []
 		var year = 2019
@@ -48,7 +50,8 @@ class AttacksChart extends Component {
 	}
 
 	getNumWoundedDataPoints() {
-		var date = this.props.date;
+		var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
 
 		var dps = []
 		var year = 2019

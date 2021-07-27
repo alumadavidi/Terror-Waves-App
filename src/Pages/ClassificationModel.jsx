@@ -14,7 +14,9 @@ class ClassificationModel extends Component {
 		super();
 		this.state = {
 			year: 2019,
-			date: "2019/01/01"
+			date: "2019/12/31",
+			graphsStartDate : "2019/12/30",
+			graphsEndDate : "2019/12/01"
 		}
 		this.updateModel = this.updateModel.bind(this);
 		this.updateCharts = this.updateCharts.bind(this);
@@ -28,9 +30,21 @@ class ClassificationModel extends Component {
 	}
 	
 	updateCharts(selectedDate) {
-		alert("Model Page\nDate: " + selectedDate);	
+		alert("Model Page\nDate: " + selectedDate);
+
+		// Get graphs start date (last 30 days)
+		var startDate = new Date(selectedDate)
+		startDate.setDate(startDate.getDate() - 31);
+		var formattedStartDate = startDate.toISOString().slice(0, 10);
+		// Get graphs end date
+		var endDate = new Date(selectedDate)
+		endDate.setDate(endDate.getDate());
+		var formattedEndDate = endDate.toISOString().slice(0, 10);
+
 		this.setState({
-			date: selectedDate
+			date: selectedDate,
+			graphsStartDate : formattedStartDate,
+			graphsEndDate : formattedEndDate
 		});
 	}
 
@@ -69,22 +83,26 @@ class ClassificationModel extends Component {
 				</div>
 				<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
 					<WeatherChart
-						date = {this.state.date}
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
 					/>
 				</div>
 				<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
 					<AttacksChart 
-						date = {this.state.date}
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
 					/>
 				</div>
 				<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
 					<GoogleTrendsIsraelChart
-						date = {this.state.date}
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
 					/>
 				</div>
 				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
 					<GoogleTrendsPalestineChart
-						date = {this.state.date}
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
 					/>
 				</div>
 				<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', paddingLeft: '5px', marginBottom: '20px', border: '1px solid black'}}>
@@ -94,13 +112,15 @@ class ClassificationModel extends Component {
 					<div id = "holidays_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px', marginRight: '45px'}}>
 						Holidays
 						<HolidaysHeatmap
-							date = {this.state.date}
+							startDate = {this.state.graphsStartDate}
+							endDate = {this.state.graphsEndDate}
 						/>
 					</div>
 					<div id = "elections_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px'}}>
 						Elections
 						<ElectionsHeatmap
-							date = {this.state.date}
+							startDate = {this.state.graphsStartDate}
+							endDate = {this.state.graphsEndDate}
 						/>
 					</div>
 				</div>				

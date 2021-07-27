@@ -20,7 +20,8 @@ class GoogleTrendsPalestineChart extends Component {
 	}
 
 	getGoogleTrendsPalestineDataPoints(word) {
-		var date = this.props.date;
+		var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
 
 		var dps = []
 		var year = 2019

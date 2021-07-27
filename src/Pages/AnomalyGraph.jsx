@@ -12,7 +12,9 @@ class AnomalyGraph extends Component {
   }
 
   setDate(e) {
-    var formattedDate = new Date(e.dataPoint.x).toISOString().slice(0, 10);
+    var date =  new Date(e.dataPoint.x);
+    date.setDate(date.getDate() + 1);
+    var formattedDate = date.toISOString().slice(0, 10);
     this.setState({ date : formattedDate });
   }
 

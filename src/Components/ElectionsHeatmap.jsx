@@ -12,8 +12,9 @@ class ElectionsHeatmap extends Component {
         };
       }
 
-    getHolidaysDataPoints() {
-        var date = this.props.date;
+    getElectionsDataPoints() {
+        var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
         
         var dps = [
             { date: '2016/02/02', count: 1 },
@@ -25,7 +26,7 @@ class ElectionsHeatmap extends Component {
         return (
             <div>
                 <HeatMap
-                    value = {this.getHolidaysDataPoints()}
+                    value = {this.getElectionsDataPoints()}
                     rectSize = {16}
                     width = {140}
                     panelColors= {{

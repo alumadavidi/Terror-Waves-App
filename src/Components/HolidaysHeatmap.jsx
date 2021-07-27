@@ -13,7 +13,8 @@ class HolidaysHeatmap extends Component {
       }
 
     getHolidaysDataPoints() {
-        var date = this.props.date;
+        var startDate = this.props.startDate;
+		var endDate = this.props.endDate;
         
         var dps = [
             { date: '2016/01/15', count: 1 },
