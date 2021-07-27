@@ -15,8 +15,8 @@ class ClassificationModel extends Component {
 		this.state = {
 			year: 2019,
 			date: "2019/12/31",
-			graphsStartDate : "2019/12/30",
-			graphsEndDate : "2019/12/01"
+			graphsStartDate : "2019/12/01",
+			graphsEndDate : "2019/12/30"
 		}
 		this.updateModel = this.updateModel.bind(this);
 		this.updateCharts = this.updateCharts.bind(this);
@@ -25,7 +25,10 @@ class ClassificationModel extends Component {
 	updateModel(selectedYear) {
 		alert("Model Page\nYear: " + selectedYear);
 		this.setState({
-			year: selectedYear
+			year: selectedYear,
+			date: selectedYear + "/12/31",
+			graphsStartDate : selectedYear + "/12/01",
+			graphsEndDate : selectedYear + "/12/30",
 		});
 	}
 	
@@ -109,7 +112,7 @@ class ClassificationModel extends Component {
 
 		return (
 			<div id = "classification_charts">
-				<div id = "model_heatmap" style= {{fontFamily: 'Candara', fontWeight: 'bold', display: 'inline-block', background: 'white', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
+				<div id = "model_heatmap" style= {{fontFamily: 'Candara', fontWeight: 'bold', display: 'inline-block', background: 'white', width: '94%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
 					<div id = "model_header" style= {{fontSize: 25}}>
 						Classification Model
 					</div>

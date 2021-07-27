@@ -4,29 +4,22 @@ import Tooltip from '@uiw/react-tooltip';
 
 
 class ModelHeatmap extends Component {
-    constructor() {
-        super();
-        this.state = {
-            startDate: new Date("2016- 01- 01"),
-            endDate: new Date("2016- 12- 31")
-        };
-      }
 
     getModelDataPoints() {
         var year = this.props.year;
 
         var dps = [
-            { date: '2016/01/01', count: 1 },
-            { date: '2016/01/11', count: 1 },
-            ...[...Array(17)].map((_, idx) => ({ date: `2016/01/${idx + 10}`, count: 1, })),
-            ...[...Array(17)].map((_, idx) => ({ date: `2016/02/${idx + 10}`, count: 1, })),
-            { date: '2016/04/12', count: 1 },
-            { date: '2016/05/01', count: 1 },
-            { date: '2016/05/02', count: 1 },
-            { date: '2016/05/03', count: 1 },
-            { date: '2016/05/04', count: 1 },
-            { date: '2016/05/08', count: 1 },
-            { date: '2016/12/31', count: 1 }
+            { date: '2019/01/01', count: 1 },
+            { date: '2019/01/11', count: 1 },
+            ...[...Array(17)].map((_, idx) => ({ date: `2019/01/${idx + 10}`, count: 1, })),
+            ...[...Array(17)].map((_, idx) => ({ date: `2019/02/${idx + 10}`, count: 1, })),
+            { date: '2019/04/12', count: 1 },
+            { date: '2019/05/01', count: 1 },
+            { date: '2019/05/02', count: 1 },
+            { date: '2019/05/03', count: 1 },
+            { date: '2019/05/04', count: 1 },
+            { date: '2019/05/08', count: 1 },
+            { date: '2019/12/31', count: 1 }
             ];
         return dps;
 	}
@@ -37,14 +30,14 @@ class ModelHeatmap extends Component {
                 <HeatMap
                     value = {this.getModelDataPoints()}
                     rectSize = {14}
-                    width = {890}
+                    width = {900}
                     panelColors= {{
                         0: '#c5cae9',
                         1: '#303f9f'
                       }}
                     legendCellSize = {0}
-                    startDate = {this.state.startDate}
-                    endDate = {this.state.endDate}
+                    startDate = {new Date(this.props.year + "/01/01")}
+                    endDate = {new Date(this.props.year + 1 + "/01/15")}
                     rectRender = {(props, data) => {
                         return (
                         <Tooltip
