@@ -101,8 +101,6 @@ class WeatherChart extends Component {
     render() {
         const weather = {
 			height: 200,
-			//exportEnabled: true,
-			//exportFileName: "Weather_Graph",
 			animationEnabled: true,
 			zoomEnabled: true,
 			theme: "light2",

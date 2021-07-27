@@ -67,8 +67,6 @@ class AttacksChart extends Component {
     render() {
         const attacks = {
 			height: 200,
-			//exportEnabled: true,
-			//exportFileName: "Attacks_Graph",
 			animationEnabled: true,
 			zoomEnabled: true,
 			theme: "light2",

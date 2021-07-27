@@ -37,8 +37,6 @@ class GoogleTrendsPalestineChart extends Component {
     render() {
 		const googleTrendsPalestine = {
 			height: 200,
-			//exportEnabled: true,
-			//exportFileName: "GoogleTrendsPalestineGraph",
 			animationEnabled: true,
 			zoomEnabled: true,
 			theme: "light2",
