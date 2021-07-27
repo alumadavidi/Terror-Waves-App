@@ -49,6 +49,64 @@ class ClassificationModel extends Component {
 	}
 
     render() {
+		let googleAndSpecialDays;
+		const specialDaysHeatmaps =
+		<div>
+			<div id = "special_days_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
+				Special Days
+			</div>
+			<div id = "holidays_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px', marginRight: '45px'}}>
+				Holidays
+				<HolidaysHeatmap
+					startDate = {this.state.graphsStartDate}
+					endDate = {this.state.graphsEndDate}
+				/>
+			</div>
+			<div id = "elections_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px'}}>
+				Elections
+				<ElectionsHeatmap
+					startDate = {this.state.graphsStartDate}
+					endDate = {this.state.graphsEndDate}
+				/>
+			</div>
+		</div>
+
+		if (this.state.year >= 2004) {
+			googleAndSpecialDays =
+			<div>
+				<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+					<GoogleTrendsIsraelChart
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
+					/>
+				</div>
+				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+					<GoogleTrendsPalestineChart
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
+					/>
+				</div>
+				<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', paddingLeft: '5px', marginBottom: '20px', border: '1px solid black'}}>
+					{specialDaysHeatmaps}
+				</div>
+			</div>			
+		} else {
+			googleAndSpecialDays =
+			<div>
+				<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', marginBottom: '20px', border: '1px solid black'}}>
+					{specialDaysHeatmaps}
+				</div>
+				<div id = "google_trends_no_data" style= {{display: 'inline-block', background: 'white', width: '45%', height: '206px', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', marginBottom: '20px', border: '1px solid black'}}>
+					<h1 id = "google_trends_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
+						Google Trends
+					</h1>
+					<p id = "google_trends_content" style= {{float: 'left', fontFamily: 'Candara', fontSize: 16, color: 'red', marginTop: '60px', paddingLeft: '98px'}}>
+						No Google Trends data before 2004
+					</p>
+				</div>
+			</div>
+		}
+
 		return (
 			<div id = "classification_charts">
 				<div id = "model_heatmap" style= {{fontFamily: 'Candara', fontWeight: 'bold', display: 'inline-block', background: 'white', width: '92%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
@@ -93,37 +151,7 @@ class ClassificationModel extends Component {
 						endDate = {this.state.graphsEndDate}
 					/>
 				</div>
-				<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-					<GoogleTrendsIsraelChart
-						startDate = {this.state.graphsStartDate}
-						endDate = {this.state.graphsEndDate}
-					/>
-				</div>
-				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
-					<GoogleTrendsPalestineChart
-						startDate = {this.state.graphsStartDate}
-						endDate = {this.state.graphsEndDate}
-					/>
-				</div>
-				<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', paddingLeft: '5px', marginBottom: '20px', border: '1px solid black'}}>
-					<div id = "special_days_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
-						Special Days
-					</div>
-					<div id = "holidays_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px', marginRight: '45px'}}>
-						Holidays
-						<HolidaysHeatmap
-							startDate = {this.state.graphsStartDate}
-							endDate = {this.state.graphsEndDate}
-						/>
-					</div>
-					<div id = "elections_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px'}}>
-						Elections
-						<ElectionsHeatmap
-							startDate = {this.state.graphsStartDate}
-							endDate = {this.state.graphsEndDate}
-						/>
-					</div>
-				</div>				
+				{googleAndSpecialDays}
 			</div>
 		);
     }
