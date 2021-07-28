@@ -6,7 +6,7 @@ class AnomalyGraph extends Component {
   constructor() {
     super();
     this.state = {
-      date: null
+      date: "---"
     };
     this.setDate = this.setDate.bind(this);
   }
@@ -40,9 +40,18 @@ class AnomalyGraph extends Component {
         </div>
         <div
             style={{
-              paddingLeft: "150px"
+              paddingLeft: "40px",
+              paddingBottom: "20px"
             }}
           >
+          <div style= {{float: 'left', fontSize: 16, fontFamily: 'Candara', fontWeight: 'bold', paddingTop: '20px', paddingBottom: '15px', textAlign: 'left'}}>
+						<div style= {{float: 'left'}}>
+              Attacks on the selected date:
+						</div>
+						<div style= {{float: 'left', paddingLeft: '5px', color: '#f43e3a'}}>
+							{this.state.date}
+						</div>
+					</div>
             <AttacksTable
               date = {this.state.date}
             />

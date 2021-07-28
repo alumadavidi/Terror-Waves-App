@@ -12,6 +12,9 @@ class AttacksTable extends Component {
 	getAttackInformation() {
 		var date = this.props.date;
 		alert("Table: " + date);
+
+		this.state.city = ["Tel-Aviv", "Jerusalem"]
+		this.state.attackInformation = ["Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack Attack", "Attack Attack Attack"]
 	}
 	
 	render() {
@@ -19,8 +22,12 @@ class AttacksTable extends Component {
 
 		// Arrange the attacks information in a table
 		const attacks = []
-		for (var i=0; i < this.state.city.length; i++) {
-			attacks.push(<tr><td>{this.state.city[i]}</td><td>{this.state.attackInformation[i]}</td></tr>)
+		if (this.state.city.length == 0) {
+			attacks.push(<tr style={{fontWeight: "bold"}}><td style={{fontSize: "22"}}>---</td><td>---</td></tr>)
+		} else {
+			for (var i=0; i < this.state.city.length; i++) {
+				attacks.push(<tr><td>{this.state.city[i]}</td><td style={{textAlign: "left"}}>{this.state.attackInformation[i]}</td></tr>)
+			}
 		}
 	
 		return (
@@ -28,19 +35,17 @@ class AttacksTable extends Component {
 			  <table
 				id="information_table"
 				style={{
-				  fontFamily: "candara",
-				  textAlign: "center",
-				  fontSize: "12",
-				  width: "80%",
-				  border: "1px solid black",
+				  width: "96%",
 				  background: "white"
 				}}
 			  >
-				<tr>
-				  <th>City</th>
-				  <th>Attack Information</th>
-				</tr>
-				{attacks}
+				<tbody>
+					<tr>
+					<th style={{width: "20%"}}>City</th>
+					<th style={{width: "80%"}}>Attack Information</th>
+					</tr>
+					{attacks}
+				</tbody>
 			  </table>
 		  </div>
 		);
