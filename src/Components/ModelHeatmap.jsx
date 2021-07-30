@@ -1,10 +1,61 @@
 import React, { Component } from "react";
 import HeatMap from '@uiw/react-heat-map';
 import Tooltip from '@uiw/react-tooltip';
+import axios from "axios";
 
 
 class ModelHeatmap extends Component {
+    constructor() {
+        super();
+        this.state = {
+            dataPoints: []
+        };
+    }
 
+    
+    // Replace "getModelDataPoints()" with "componentDidMount()"
+    async componentDidMount() {
+        let response = await axios.get("/Anomalies"); // Change to "/Model"
+
+        alert("Status: " + response.status)
+
+        var dps = [];
+        response.data.map((modelData) => {
+            if (new Date(modelData.date).getFullYear() === this.props.year && new Date(modelData.date).getMonth() === 1) {
+                dps.push({ date: new Date(modelData.date), count: 1 });
+            }
+        })
+
+        alert("Data length: " + dps.length)
+
+        this.setState({
+            dataPoints: dps
+        });
+    }
+    
+
+    /*
+    // Remove
+    async componentDidUpdate(prevProps) {
+        // only update chart if the data has changed
+        if (prevProps.year !== this.props.year) {
+            let response = await axios.get("/Anomalies"); // Change to "/Model"
+            var dps = [];
+            response.data.map((modelData) => {
+                //if (new Date(modelData.date).getFullYear() === this.props.year && new Date(modelData.date).getMonth() === 1) {
+                    dps.push({ date: new Date(modelData.date), count: 1 });
+                //}
+            })
+    
+            this.setState({
+                dataPoints: dps
+            });
+        }
+      }
+    */
+    
+
+    // Replace "getModelDataPoints()" with "componentDidMount()"
     getModelDataPoints() {
         var year = this.props.year;
 
@@ -22,13 +73,21 @@ class ModelHeatmap extends Component {
             { date: '2019/12/31', count: 1 }
             ];
         return dps;
-	}
+    }
+    
     
     render() {
+        /*
+        if (this.state.dataPoints.length > 0) {
+            alert(this.state.dataPoints.length)
+        }
+        */
+
         return (
             <div>
                 <HeatMap
                     value = {this.getModelDataPoints()}
+                    //value = {this.state.dataPoints}
                     rectSize = {14}
                     width = {900}
                     panelColors= {{
