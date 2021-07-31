@@ -12,10 +12,8 @@ class AnomalyGraph extends Component {
   }
 
   setDate(e) {
-    var date =  new Date(e.dataPoint.x);
-    date.setDate(date.getDate() + 1);
-    var formattedDate = date.toISOString().slice(0, 10);
-    this.setState({ date : formattedDate });
+    var date = e.dataPoint.x.toISOString().slice(0, 10);
+    this.setState({ date : date });
   }
 
   render() {
@@ -49,7 +47,7 @@ class AnomalyGraph extends Component {
               Attacks on the selected date:
 						</div>
 						<div style= {{float: 'left', paddingLeft: '5px', color: '#f43e3a'}}>
-							{this.state.date}
+							{this.state.date != "---" ? this.state.date.split('-').join('/') : this.state.date}
 						</div>
 					</div>
             <AttacksTable
