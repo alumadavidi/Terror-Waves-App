@@ -1,13 +1,49 @@
 import React, { Component } from "react";
 import CanvasJSReact from '../canvasjs/canvasjs.react';
+import axios from "axios";
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class AttacksChart extends Component {
     constructor() {
 		super();
+		this.state = {
+            attacksDataPoints: [],
+			deathsDataPoints: [],
+			woundedDataPoints: []
+
+        };
 		this.toggleAttacksDataSeries = this.toggleAttacksDataSeries.bind(this);
 	}
+
+	/*
+    componentDidMount() {
+        this.getDataPoints();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.startDate !== this.props.startDate) {
+			this.getDataPoints();
+        }
+	}
+	*/
+
+	async getDataPoints() {
+        let response = await axios.get("/Anomalies"); // Change to "/Attacks"
+        var attacksDps = [], deathsDps = [], woundedDps = [];
+        response.data.map((attacksData) => {
+			attacksDps.push({ x: new Date(attacksData.date), y: attacksData.num_attack });
+			deathsDps.push({ x: new Date(attacksData.date), y: attacksData.num_deaths });
+			woundedDps.push({ x: new Date(attacksData.date), y: attacksData.num_wounded });
+        })
+
+        this.setState({
+            attacksDataPoints: attacksDps,
+			deathsDataPoints: deathsDps,
+			woundedDataPoints: woundedDps
+        });
+	}
+
 
 	toggleAttacksDataSeries(e) {
 		if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -95,8 +131,10 @@ class AttacksChart extends Component {
 				type: "column",
 				name: "Attacks",
 				showInLegend: true,
+				xValueFormatString: "YYYY/MM/DD",
 				toolTipContent: "<strong>{x}</strong></br> Attacks: {y}",
 				dataPoints: this.getNumAttacksDataPoints()
+				//dataPoints: this.state.attacksDataPoints
 			},
 			{
 				type: "column",
@@ -104,6 +142,7 @@ class AttacksChart extends Component {
 				showInLegend: true,
 				toolTipContent: "Deaths: {y}",
 				dataPoints: this.getNumDeathsDataPoints()
+				//dataPoints: this.state.deathsDataPoints
 			},
 			{
 				type: "column",
@@ -111,6 +150,7 @@ class AttacksChart extends Component {
 				showInLegend: true,
 				toolTipContent: "Wounded: {y}",
 				dataPoints: this.getNumWoundedDataPoints()
+				//dataPoints: this.state.woundedDataPoints
 			}]
 		}
 

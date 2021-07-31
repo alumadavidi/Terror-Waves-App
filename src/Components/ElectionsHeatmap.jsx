@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import HeatMap from '@uiw/react-heat-map';
 import Tooltip from '@uiw/react-tooltip';
+import axios from "axios";
 
 
 class ElectionsHeatmap extends Component {
@@ -8,9 +9,36 @@ class ElectionsHeatmap extends Component {
         super();
         this.state = {
             startDate: new Date("2016/01/12"),
-            endDate: new Date("2016/02/11")
+            endDate: new Date("2016/02/11"),
+            //startDate: this.props.startDate,
+            //endDate: this.props.endDate,
+            dataPoints: []
         };
-      }
+    }
+
+    /*
+    componentDidMount() {
+        this.getDataPoints();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.date !== this.props.date) {
+            this.getDataPoints();
+        }
+	}
+    */
+
+    async getDataPoints() {
+        let response = await axios.get("/Anomalies"); // Change to "/Elections"
+        var dps = [];
+        response.data.map((electionsData) => {
+			dps.push({ date: electionsData.date, count: 1 });
+        })
+
+        this.setState({
+            dataPoints: dps
+        });
+    }
 
     getElectionsDataPoints() {
         var startDate = this.props.startDate;
@@ -27,6 +55,7 @@ class ElectionsHeatmap extends Component {
             <div>
                 <HeatMap
                     value = {this.getElectionsDataPoints()}
+                    //value = {this.state.dataPoints}
                     rectSize = {16}
                     width = {140}
                     panelColors= {{

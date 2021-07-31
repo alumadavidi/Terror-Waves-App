@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CanvasJSReact from "../canvasjs/canvasjs.stock.react";
+import axios from "axios";
 
 var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
@@ -8,15 +9,37 @@ class AnomalyChart extends Component {
         super();
         this.state = {
             date: null,
-            startValue: new Date("2019-01-01"),
-            endValue: new Date("2019-12-31")
+            startValue: new Date("1970-01-30"),
+            endValue: new Date("2019-12-30"),
+            dataPoints: [{x: new Date("2019-12-30"), y: 0}]
         };
     }
-  
-    shouldComponentUpdate() {
-        return false
+   
+    shouldComponentUpdate() {        
+        if (this.state.dataPoints.length <= 1) {
+            return true;
+        }
+        return false;
+    }
+    
+    componentDidMount() {
+        this.getDataPoints();
+    }
+    
+    async getDataPoints() {       
+        let response = await axios.get("/Anomalies");
+        var dps = [];
+        response.data.map((anomalyData) => {
+            dps.push({ x: new Date(anomalyData.date), y: anomalyData.loss });
+        })
+
+        this.setState({
+            dataPoints: dps,
+            isLoaded: true
+        });
     }
  
+    /*
     getAnomalyDataPoints() {
         var dps = [];
         var year, month, day;
@@ -27,12 +50,20 @@ class AnomalyChart extends Component {
                 }
             }
         }
-        return dps;
+        return dps;       
     }
+    */
 
     render() {
+        /*
+        if (this.state.dataPoints.length > 0) {
+            alert("render: " + this.state.dataPoints.length + "\nDate: " + this.state.dataPoints[0].x)
+        }
+        */
+
         const anomaly = {
             height: 390,
+            animationEnabled: true,
             title: {
             text: "Anomaly Detection",
             fontFamily: "Candara",
@@ -42,16 +73,28 @@ class AnomalyChart extends Component {
             charts: [
             {
                 theme: "light2",
+                toolTip: {
+                    shared: true
+                },
                 axisX: {
-                labelFontSize: 10,
+                    labelFontSize: 10,
+                    labelMaxWidth: 100,
+                    crosshair: {
+                        enabled: true,
+                        lineDashType: "dot",
+                    },
                 },
                 axisY: {
                 title: "Anomaly Value",
                 fontFamily: "Candara",
+                minimum: 0,
+                maximum: 1,
                 },
                 data: [
                 {
-                    dataPoints: this.getAnomalyDataPoints(),
+                    //dataPoints: this.getAnomalyDataPoints(),
+                    dataPoints: this.state.dataPoints,
+                    xValueFormatString: "YYYY/MM/DD",
                     toolTipContent: "Date: {x}</br> Value: {y}",
                     click: this.props.setDate,
                 },
@@ -85,6 +128,10 @@ class AnomalyChart extends Component {
                 rangeType: "year",
                 label: "5y",
                 },
+                {
+                rangeType: "all",
+                label: "All",
+                }
             ],
             buttonStyle: {
                 labelFontSize: 18,

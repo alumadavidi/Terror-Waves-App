@@ -1,13 +1,46 @@
 import React, { Component } from "react";
 import CanvasJSReact from '../canvasjs/canvasjs.react';
+import axios from "axios";
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class WeatherChart extends Component {
     constructor() {
 		super();
+        this.state = {
+            temperatureDataPoints: [],
+            precipitationDataPoints: []
+        };
 		this.toggleWeatherDataSeries = this.toggleWeatherDataSeries.bind(this);
 	}
+   
+    /*
+    componentDidMount() {
+        this.getDataPoints();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.startDate !== this.props.startDate) {
+            this.getDataPoints();
+        }
+    }
+    */
+    
+    async getDataPoints() {
+        let response = await axios.get("/Anomalies"); // Change to "/Weather"
+        var temperatureDps = [], precipitationDps = [];
+        response.data.map((weatherData) => {
+            temperatureDps.push({ x: new Date(weatherData.date), y: [weatherData.min_temp, weatherData.max_temp] });
+            precipitationDps.push({ x: new Date(weatherData.date), y: weatherData.perciption });
+        })
+
+        alert("weather updated")
+
+        this.setState({
+            temperatureDataPoints: temperatureDps,
+            precipitationDataPoints: precipitationDps
+        });
+    }
 
 	toggleWeatherDataSeries(e) {
 		if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -146,8 +179,10 @@ class WeatherChart extends Component {
 				name: "Temperature",
 				showInLegend: true,
 				indexLabel: "{y[#index]}°",
+                xValueFormatString: "YYYY/MM/DD",
 				toolTipContent: "<strong>{x}</strong></br> Max Temperature: {y[1]}°C<br/> Min Temperature: {y[0]}°C",
 				dataPoints: this.getTemperatureDataPoints()
+                //dataPoints: this.state.temperatureDataPoints
 			},
 			{
 				type: "line",
@@ -156,6 +191,7 @@ class WeatherChart extends Component {
 				showInLegend: true,
 				toolTipContent: "Precipitation: {y} cm",
 				dataPoints: this.getPrecipitationDataPoints()
+                //dataPoints: this.state.precipitationDataPoints
 			}]
 		}
 

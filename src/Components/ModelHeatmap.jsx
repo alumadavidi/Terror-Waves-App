@@ -12,49 +12,37 @@ class ModelHeatmap extends Component {
         };
     }
 
-    
+    /*
     // Replace "getModelDataPoints()" with "componentDidMount()"
-    async componentDidMount() {
+    componentDidMount() {
+        this.getDataPoints();
+    }
+    */
+    
+
+    /*
+    // Remove
+    componentDidUpdate(prevProps) {
+        // only update chart if the data has changed
+        if (prevProps.year !== this.props.year) {
+            this.getDataPoints();
+        }
+    }
+    */
+
+    async getDataPoints() {
         let response = await axios.get("/Anomalies"); // Change to "/Model"
-
-        alert("Status: " + response.status)
-
         var dps = [];
         response.data.map((modelData) => {
-            if (new Date(modelData.date).getFullYear() === this.props.year && new Date(modelData.date).getMonth() === 1) {
+            //if (new Date(modelData.date).getFullYear() === this.props.year && new Date(modelData.date).getMonth() === 1) {
                 dps.push({ date: new Date(modelData.date), count: 1 });
-            }
+            //}
         })
-
-        alert("Data length: " + dps.length)
-
         this.setState({
             dataPoints: dps
         });
     }
     
-
-    /*
-    // Remove
-    async componentDidUpdate(prevProps) {
-        // only update chart if the data has changed
-        if (prevProps.year !== this.props.year) {
-            let response = await axios.get("/Anomalies"); // Change to "/Model"
-            var dps = [];
-            response.data.map((modelData) => {
-                //if (new Date(modelData.date).getFullYear() === this.props.year && new Date(modelData.date).getMonth() === 1) {
-                    dps.push({ date: new Date(modelData.date), count: 1 });
-                //}
-            })
-    
-            this.setState({
-                dataPoints: dps
-            });
-        }
-      }
-    */
-    
-
     // Replace "getModelDataPoints()" with "componentDidMount()"
     getModelDataPoints() {
         var year = this.props.year;
