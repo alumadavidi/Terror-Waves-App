@@ -81,12 +81,14 @@ class ClassificationModel extends Component {
 					<GoogleTrendsIsraelChart
 						startDate = {this.state.graphsStartDate}
 						endDate = {this.state.graphsEndDate}
+						year = {this.state.year}
 					/>
 				</div>
 				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
 					<GoogleTrendsPalestineChart
 						startDate = {this.state.graphsStartDate}
 						endDate = {this.state.graphsEndDate}
+						year = {this.state.year}
 					/>
 				</div>
 				<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', paddingLeft: '5px', marginBottom: '20px', border: '1px solid black'}}>
