@@ -33,7 +33,13 @@ class Login extends Component {
           propFunc();
         }
       })
-      .catch((error) => {});
+      .catch((error) => {
+        if (error.response.status === 404) {
+          alert("Invalid username or password");
+        } else {
+          alert("Error! Something went wrong - server faild");
+        }
+      });
   };
 
   handleLogout = (propFunc) => {
