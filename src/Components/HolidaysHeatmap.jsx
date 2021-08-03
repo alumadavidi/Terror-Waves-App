@@ -30,7 +30,12 @@ class HolidaysHeatmap extends Component {
     */
 
     async getDataPoints() {
-        let response = await axios.get("/Anomalies"); // Change to "/Holidays"
+        let response = await axios.get("/Holidays", {
+            params: {
+                startDate : this.props.startDate,
+                endDate : this.props.endDate
+            }
+          });
         var dps = [], muslimDps = [], jewishDps = [], christianDps = [];
         var count = 0;
         response.data.map((holidaysData) => {
@@ -127,7 +132,7 @@ class HolidaysHeatmap extends Component {
         });
     }
 
-
+    
     getHolidaysDataPoints() {
         var startDate = this.props.startDate;
 		var endDate = this.props.endDate;
@@ -142,6 +147,7 @@ class HolidaysHeatmap extends Component {
             ];
         return dps;
 	}
+    
     
     render() {
         return (
