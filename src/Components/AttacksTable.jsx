@@ -24,7 +24,11 @@ class AttacksTable extends Component {
 	*/
 	
 	async getDataPoints() {
-        let attacksResponse = await axios.get("/Anomalies"); // Change to "/AttacksInfo"
+        let attacksResponse = await axios.get("/AttacksInfo", {
+            params: {
+                date : this.props.date
+            }
+          });
         var attacksInfo = [];
         attacksResponse.data.map((attacksData) => {
 			attacksInfo.push({ city: attacksData.city, description: attacksData.description });

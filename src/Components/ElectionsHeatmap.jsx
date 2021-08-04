@@ -22,17 +22,22 @@ class ElectionsHeatmap extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.date !== this.props.date) {
+        if (prevProps.startDate !== this.props.startDate) {
             this.getDataPoints();
         }
 	}
     */
 
     async getDataPoints() {
-        let response = await axios.get("/Anomalies"); // Change to "/Elections"
+        let response = await axios.get("/Elections", {
+            params: {
+                startDate : this.props.startDate,
+                endDate : this.props.endDate
+            }
+          });
         var dps = [];
         response.data.map((electionsData) => {
-			dps.push({ date: electionsData.date, count: 1 });
+			dps.push({ date: electionsData.date, count: electionsData.is_election });
         })
 
         this.setState({
@@ -40,6 +45,7 @@ class ElectionsHeatmap extends Component {
         });
     }
 
+    
     getElectionsDataPoints() {
         var startDate = this.props.startDate;
 		var endDate = this.props.endDate;
@@ -49,6 +55,7 @@ class ElectionsHeatmap extends Component {
             ];
         return dps;
 	}
+    
     
     render() {
         return (
@@ -64,7 +71,9 @@ class ElectionsHeatmap extends Component {
                       }}
                     legendCellSize = {0}
                     startDate = {this.state.startDate}
+                    //startDate = {this.props.startDate}
                     endDate = {this.state.endDate}
+                    //endDate = {this.props.endDate}
                     rectRender = {(props, data) => {
                         return (                           
                             <Tooltip

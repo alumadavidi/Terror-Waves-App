@@ -31,7 +31,7 @@ class ModelHeatmap extends Component {
     */
 
     async getDataPoints() {
-        let response = await axios.get("/Anomalies"); // Change to "/Model"
+        let response = await axios.get("/ModelPredictions");
         var dps = [];
         response.data.map((modelData) => {
             //if (new Date(modelData.date).getFullYear() === this.props.year && new Date(modelData.date).getMonth() === 1) {

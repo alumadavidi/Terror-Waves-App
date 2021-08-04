@@ -13,8 +13,7 @@ class WeatherChart extends Component {
         };
 		this.toggleWeatherDataSeries = this.toggleWeatherDataSeries.bind(this);
 	}
-   
-    /*
+    
     componentDidMount() {
         this.getDataPoints();
     }
@@ -24,17 +23,19 @@ class WeatherChart extends Component {
             this.getDataPoints();
         }
     }
-    */
     
     async getDataPoints() {
-        let response = await axios.get("/Anomalies"); // Change to "/Weather"
+        let response = await axios.get("/Weather", {
+            params: {
+                startDate : this.props.startDate,
+                endDate : this.props.endDate
+            }
+          });
         var temperatureDps = [], precipitationDps = [];
         response.data.map((weatherData) => {
             temperatureDps.push({ x: new Date(weatherData.date), y: [weatherData.min_temp, weatherData.max_temp] });
             precipitationDps.push({ x: new Date(weatherData.date), y: weatherData.perciption });
         })
-
-        alert("weather updated")
 
         this.setState({
             temperatureDataPoints: temperatureDps,
@@ -51,7 +52,8 @@ class WeatherChart extends Component {
 		}
         this.weather_chart.render();
 	}
-
+    
+    /*
     // Get temperature data of the 30 days before the selected date
     getTemperatureDataPoints() {
         var startDate = this.props.startDate;
@@ -130,6 +132,7 @@ class WeatherChart extends Component {
         ]
         return dps;
     }
+    */
     
     render() {
         const weather = {
@@ -181,8 +184,8 @@ class WeatherChart extends Component {
 				indexLabel: "{y[#index]}°",
                 xValueFormatString: "YYYY/MM/DD",
 				toolTipContent: "<strong>{x}</strong></br> Max Temperature: {y[1]}°C<br/> Min Temperature: {y[0]}°C",
-				dataPoints: this.getTemperatureDataPoints()
-                //dataPoints: this.state.temperatureDataPoints
+				//dataPoints: this.getTemperatureDataPoints()
+                dataPoints: this.state.temperatureDataPoints
 			},
 			{
 				type: "line",
@@ -190,8 +193,8 @@ class WeatherChart extends Component {
 				axisYType: "secondary",
 				showInLegend: true,
 				toolTipContent: "Precipitation: {y} cm",
-				dataPoints: this.getPrecipitationDataPoints()
-                //dataPoints: this.state.precipitationDataPoints
+				//dataPoints: this.getPrecipitationDataPoints()
+                dataPoints: this.state.precipitationDataPoints
 			}]
 		}
 
