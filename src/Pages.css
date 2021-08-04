@@ -17,6 +17,7 @@
   margin-right: 30%;
   width: 60%;
   padding: 1%;
+  margin-top: 10%;
 }
 
 .PredDataRight {
@@ -66,14 +67,15 @@
 }
 
 .PredData #Acc {
-  font-size: 60px;
+  font-size: 70px;
+  padding-top: 10%;
 }
 
 .ModelView {
   border: 1px solid gainsboro;
   background-color: white;
   color: #696969;
-  height: 99%;
+  height: 150px;
   width: 80%;
   padding: 1%;
 }

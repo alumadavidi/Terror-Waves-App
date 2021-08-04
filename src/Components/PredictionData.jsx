@@ -8,8 +8,8 @@ import green from "@material-ui/core/colors/green";
 class PredictionData extends Component {
   state = {
     date: this.props.date,
-    classPred: this.props.classPred,
-    classModelAcc: this.props.classModelAcc,
+    pred: this.props.pred,
+    modelAcc: this.props.modelAcc,
     params: this.props.params,
     icon: <NoIcon style={{ fontSize: 100 }} color="secondary" />,
   };
@@ -22,6 +22,7 @@ class PredictionData extends Component {
     return (
       <div className="PredData">
         <h1 className="predTitle"> Predict Terror wave by date </h1>
+        <i className="fas fa-star-and-crescent"></i>
 
         <div className="PredLeft">
           <div className="ModelsDiv">
@@ -33,7 +34,7 @@ class PredictionData extends Component {
           <div className="AccDiv">
             <div className="ModelView">
               <h3 className="PredTitle">Model accuracy</h3>
-              <h1 id="Acc">97%</h1>
+              <h1 id="Acc">{this.state.modelAcc}</h1>
             </div>
           </div>
         </div>

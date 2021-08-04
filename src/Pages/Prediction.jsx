@@ -4,21 +4,23 @@ import DatePicker from "../Components/DatePicker";
 import PredictionData from "../Components/PredictionData";
 import WeatherIcon from "@material-ui/icons/WbSunny";
 import HolidayIcon from "@material-ui/icons/AccountBalance";
+import { MDBIcon } from "mdbreact";
 
 class Prediction extends Component {
   state = {
     date: new Date(),
-    classPred: false,
-    regPred: 70,
-    regModelAcc: 90,
-    classModelAcc: 80,
+    pred: false,
+    modelAcc: 80,
     params: [
-      { title: "weather", icon: <WeatherIcon />, val: 90 },
-      { title: "holiday", icon: <HolidayIcon />, val: 1 },
-      { title: "weather", icon: <WeatherIcon />, val: 90 },
-      { title: "holiday", icon: <HolidayIcon />, val: 1 },
-      { title: "weather", icon: <WeatherIcon />, val: 90 },
-      { title: "holiday", icon: <HolidayIcon />, val: 1 },
+      {
+        title: "Israel weather",
+        icon: <MDBIcon icon="mosque" />,
+        val: 90,
+      },
+      { title: "Jewish holiday", icon: <HolidayIcon />, val: 1 },
+      { title: "Muslim holiday", icon: <WeatherIcon />, val: 90 },
+      { title: "israel election day", icon: <WeatherIcon />, val: 90 },
+      { title: "google trends", icon: <WeatherIcon />, val: 90 },
     ],
   };
 
@@ -35,10 +37,8 @@ class Prediction extends Component {
 
         <PredictionData
           date={this.state.date}
-          classPred={this.state.classPred}
-          regPred={this.state.regPred}
-          regModelAcc={this.state.regModelAcc}
-          classModelAcc={this.state.classModelAcc}
+          pred={this.state.classPred}
+          modelAcc={this.state.classModelAcc}
           params={this.state.params}
         />
       </div>
