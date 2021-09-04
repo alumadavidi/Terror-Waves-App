@@ -13,6 +13,7 @@ class AnomalyGraph extends Component {
 
   setDate(e) {
     var date = e.dataPoint.x.toISOString().slice(0, 10);
+    date = date.split('-').join('/');
     this.setState({ date : date });
   }
 
@@ -42,12 +43,32 @@ class AnomalyGraph extends Component {
               paddingBottom: "20px"
             }}
           >
-          <div style= {{float: 'left', fontSize: 16, fontFamily: 'Candara', fontWeight: 'bold', paddingTop: '20px', paddingBottom: '15px', textAlign: 'left'}}>
-						<div style= {{float: 'left'}}>
+          <div
+            style={{
+              float: 'left',
+              fontSize: 16,
+              fontFamily: 'Candara',
+              fontWeight: 'bold',
+              paddingTop: '20px',
+              paddingBottom: '15px',
+              textAlign: 'left'
+            }}
+          >
+						<div
+              style={{
+                float: 'left'
+              }}
+            >
               Attacks on the selected date:
 						</div>
-						<div style= {{float: 'left', paddingLeft: '5px', color: '#f43e3a'}}>
-							{this.state.date != "---" ? this.state.date.split('-').join('/') : this.state.date}
+						<div
+              style={{
+                float: 'left',
+                paddingLeft: '5px',
+                color: '#f43e3a'
+              }}
+            >
+							{this.state.date}
 						</div>
 					</div>
             <AttacksTable
