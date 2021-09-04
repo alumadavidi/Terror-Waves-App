@@ -8,15 +8,10 @@ class ElectionsHeatmap extends Component {
     constructor() {
         super();
         this.state = {
-            startDate: new Date("2016/01/12"),
-            endDate: new Date("2016/02/11"),
-            //startDate: this.props.startDate,
-            //endDate: this.props.endDate,
             dataPoints: []
         };
     }
-
-    /*
+   
     componentDidMount() {
         this.getDataPoints();
     }
@@ -26,60 +21,47 @@ class ElectionsHeatmap extends Component {
             this.getDataPoints();
         }
 	}
-    */
-
+    
     async getDataPoints() {
         let response = await axios.get("/Elections", {
             params: {
                 startDate : this.props.startDate,
                 endDate : this.props.endDate
             }
-          });
+        });
         var dps = [];
         response.data.map((electionsData) => {
-			dps.push({ date: electionsData.date, count: electionsData.is_election });
+            var date = new Date(electionsData.date)
+		    date.setDate(date.getDate());
+		    var formattedDate = date.toISOString().slice(0, 10);
+			dps.push({ date: formattedDate, count: 1 });
         })
 
         this.setState({
             dataPoints: dps
         });
-    }
-
-    
-    getElectionsDataPoints() {
-        var startDate = this.props.startDate;
-		var endDate = this.props.endDate;
-        
-        var dps = [
-            { date: '2016/02/02', count: 1 },
-            ];
-        return dps;
-	}
-    
+    }   
     
     render() {
         return (
             <div>
                 <HeatMap
-                    value = {this.getElectionsDataPoints()}
-                    //value = {this.state.dataPoints}
+                    value = {this.state.dataPoints}
                     rectSize = {16}
                     width = {140}
-                    panelColors= {{
+                    panelColors = {{
                         0: '#cce8e6',
                         1: '#009688'
-                      }}
+                    }}
                     legendCellSize = {0}
-                    startDate = {this.state.startDate}
-                    //startDate = {this.props.startDate}
-                    endDate = {this.state.endDate}
-                    //endDate = {this.props.endDate}
+                    startDate = {new Date(this.props.startDate)}
+                    endDate = {new Date(this.props.endDate)}
                     rectRender = {(props, data) => {
                         return (                           
                             <Tooltip
                                 key={props.key}
                                 placement="top"
-                                content={<span>Date: {data.date}<br></br>Elections: {data.count === 1 ? 'V' : 'X'}</span>}>
+                                content={<span><b>Date:</b> {data.date}<br></br><b>Elections:</b> {data.count === 1 ? 'V' : 'X'}</span>}>
                                 <rect {...props}/>
                             </Tooltip>                            
                         );
