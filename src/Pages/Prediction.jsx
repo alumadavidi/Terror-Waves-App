@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import "../Pages.css";
 import DatePicker from "../Components/DatePicker";
 import ConfusionMatrix from "../Components/ConfusionMatrix";
-import HyperParams from "../Components/HyperParams";
-
 import PredictionData from "../Components/PredictionData";
-import WeatherIcon from "@material-ui/icons/WbSunny";
-import HolidayIcon from "@material-ui/icons/AccountBalance";
-import { MDBIcon } from "mdbreact";
 import axios from "axios";
 
 class Prediction extends Component {
@@ -41,7 +36,7 @@ class Prediction extends Component {
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          alert("Invalid username or password");
+          alert("There is no confusion matrix for " + String(fullYear));
         } else {
           alert("Error! Something went wrong - server faild");
         }
@@ -66,7 +61,7 @@ class Prediction extends Component {
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          alert("Invalid username or password");
+          alert("There is no hyper parameters for " + String(fullYear));
         } else {
           alert("Error! Something went wrong - server faild");
         }
@@ -88,34 +83,15 @@ class Prediction extends Component {
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          alert("Invalid username or password");
+          alert("There is no features for " + String(fullYear));
         } else {
           alert("Error! Something went wrong - server faild");
         }
       });
   };
 
-  updateAcc = (fullYear) => {
-    axios
-      .get("/", {
-        params: {
-          year: fullYear,
-        },
-      })
-      .then((res) => {
-        console.log(res.status);
-        if (res.status === 200) {
-          console.log(res.data);
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          alert("Invalid username or password");
-        } else {
-          alert("Error! Something went wrong - server faild");
-        }
-      });
-  };
+  updateAcc = (fullYear) => {};
+  updatePred = (fullYear) => {};
 
   update = (dateValue) => {
     this.setState({ date: new Date(dateValue) });

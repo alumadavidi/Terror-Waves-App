@@ -51,22 +51,16 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-
-.ParamList .row #icon {
-  flex: 20%;
-  display: grid;
-  place-items: center;
+  font-family: "candara";
 }
 
 .ParamList .row #title {
-  flex: 60%;
+  flex: 80%;
 }
 
 .ParamList .row #val {
   flex: 20%;
+  font-weight: bold;
 }
 
 .PredTitle {
@@ -200,6 +194,24 @@
 
 .ConfusionMatrix {
   margin-top: 34%;
-  margin-right: 0%;
+  margin-right: 10%;
   float: right;
+}
+
+.cmTable {
+  border-collapse: collapse;
+  font-family: "candara";
+  font-size: 15px;
+}
+
+th.cmTable,
+td.cmTable {
+  padding: 10px;
+  width: 20px;
+  border: 1px solid gainsboro;
+  background-color: white;
+}
+
+th.cmTable {
+  background-color: #0f4a8d5e;
 }

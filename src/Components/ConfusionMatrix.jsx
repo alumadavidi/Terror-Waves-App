@@ -16,23 +16,24 @@ class ConfusionMatrix extends Component {
     console.log(this.props.getConfusionMatrix());
     return (
       <div className="ConfusionMatrix">
-        <table>
-          <tr>
-            <th></th>
-            <th>Predicted: No</th>
-            <th>Predicted: Yes</th>
-          </tr>
-          <tr>
-            <th>Actual: No</th>
-            <td>TN={tn}</td>
-            <td>FP={fp}</td>
-          </tr>
-          <tr>
-            <th>Actual:Yes</th>
-
-            <td>FN={fn}</td>
-            <td>TP={tp}</td>
-          </tr>
+        <table className="cmTable">
+          <tbody>
+            <tr className="cmTable">
+              <th></th>
+              <th className="cmTable">Predicted: No</th>
+              <th className="cmTable">Predicted: Yes</th>
+            </tr>
+            <tr>
+              <th className="cmTable">Actual: No</th>
+              <td className="cmTable">TN={tn}</td>
+              <td className="cmTable">FP={fp}</td>
+            </tr>
+            <tr>
+              <th className="cmTable">Actual:Yes</th>
+              <td className="cmTable">FN={fn}</td>
+              <td className="cmTable">TP={tp}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );

@@ -66,7 +66,7 @@ class PredictionData extends Component {
 
   getIcon = (pred) => {
     console.log(pred);
-    if (pred == undefined) {
+    if (pred === undefined) {
       return "";
     } else if (pred) {
       return this.state.iconYes;
@@ -75,7 +75,7 @@ class PredictionData extends Component {
     }
   };
   getAcc = (acc) => {
-    if (acc == undefined) {
+    if (acc === undefined) {
       return "";
     } else {
       return String(acc) + "%";
