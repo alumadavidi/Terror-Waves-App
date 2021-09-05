@@ -57,14 +57,25 @@ class ElectionsHeatmap extends Component {
                     startDate = {new Date(this.props.startDate)}
                     endDate = {new Date(this.props.endDate)}
                     rectRender = {(props, data) => {
-                        return (                           
-                            <Tooltip
-                                key={props.key}
-                                placement="top"
-                                content={<span><b>Date:</b> {data.date}<br></br><b>Elections:</b> {data.count === 1 ? 'V' : 'X'}</span>}>
-                                <rect {...props}/>
-                            </Tooltip>                            
-                        );
+                        if (new Date(this.props.startDate) <= new Date(data.date)) {
+                            return (                           
+                                <Tooltip
+                                    key={props.key}
+                                    placement="top"
+                                    content={<span><b>Date:</b> {data.date}<br></br><b>Elections:</b> {data.count === 1 ? 'V' : 'X'}</span>}>
+                                    <rect {...props}/>
+                                </Tooltip>                            
+                            );
+                        } else {
+                            return (
+                                <Tooltip
+                                    key={props.key}
+                                    placement="top"
+                                    content={<span>Irrelevant date</span>}>
+                                    <rect {...props}/>
+                                </Tooltip>                            
+                            );
+                        }
                     }}
                     onRef={ref => this.elections_heatmap = ref}
                 />

@@ -176,16 +176,27 @@ class HolidaysHeatmap extends Component {
                             }
                         }
 
-                        return (                           
-                            <Tooltip
-                                key={props.key}
-                                placement="top"
-                                content={<span><b>Date:</b> {data.date}<br></br><b>Muslim Holidays:</b> {muslimHolidaysStr != "" ? muslimHolidaysStr : 'X'}
-                                    <br></br><b>Jewish Holidays:</b> {jewishHolidaysStr != "" ? jewishHolidaysStr : 'X'}
-                                    <br></br><b>Christian Holidays:</b> {christianHolidaysStr != "" ? christianHolidaysStr : 'X'}</span>}>
-                                <rect {...props}/>
-                            </Tooltip>                            
-                        );
+                        if (new Date(this.props.startDate) <= new Date(data.date)) {
+                            return (
+                                <Tooltip
+                                    key={props.key}
+                                    placement="top"
+                                    content={<span><b>Date:</b> {data.date}<br></br><b>Muslim Holidays:</b> {muslimHolidaysStr != "" ? muslimHolidaysStr : 'X'}
+                                        <br></br><b>Jewish Holidays:</b> {jewishHolidaysStr != "" ? jewishHolidaysStr : 'X'}
+                                        <br></br><b>Christian Holidays:</b> {christianHolidaysStr != "" ? christianHolidaysStr : 'X'}</span>}>
+                                    <rect {...props}/>
+                                </Tooltip>                            
+                            );
+                        } else {
+                            return (
+                                <Tooltip
+                                    key={props.key}
+                                    placement="top"
+                                    content={<span>Irrelevant date</span>}>
+                                    <rect {...props}/>
+                                </Tooltip>                            
+                            );
+                        }
                     }}
                     onRef={ref => this.holidays_heatmap = ref}
                 />
