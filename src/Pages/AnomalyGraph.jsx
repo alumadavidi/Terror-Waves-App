@@ -6,15 +6,20 @@ class AnomalyGraph extends Component {
   constructor() {
     super();
     this.state = {
-      date: "---"
+      date: "---",
+      loss: "---"
     };
-    this.setDate = this.setDate.bind(this);
+    this.setDateAndLoss = this.setDateAndLoss.bind(this);
   }
 
-  setDate(e) {
+  setDateAndLoss(e) {
     var date = e.dataPoint.x.toISOString().slice(0, 10);
     date = date.split('-').join('/');
-    this.setState({ date : date });
+    var loss = parseFloat(e.dataPoint.y).toFixed(8);
+    this.setState({ 
+      date : date,
+      loss : loss
+    });
   }
 
   render() {
@@ -34,7 +39,7 @@ class AnomalyGraph extends Component {
           }}
         >
           <AnomalyChart
-            setDate = {this.setDate}
+            setDateAndLoss = {this.setDateAndLoss}
           />
         </div>
         <div
@@ -49,8 +54,7 @@ class AnomalyGraph extends Component {
               fontSize: 16,
               fontFamily: 'Candara',
               fontWeight: 'bold',
-              paddingTop: '20px',
-              paddingBottom: '15px',
+              paddingBottom: '10px',
               textAlign: 'left'
             }}
           >
@@ -59,7 +63,7 @@ class AnomalyGraph extends Component {
                 float: 'left'
               }}
             >
-              Attacks on the selected date:
+              Selected Date:
 						</div>
 						<div
               style={{
@@ -70,10 +74,31 @@ class AnomalyGraph extends Component {
             >
 							{this.state.date}
 						</div>
+            <div
+              style={{
+                float: 'left',
+                paddingLeft: '20px'
+              }}
+            >
+              Loss Value:
+						</div>
+						<div
+              style={{
+                float: 'left',
+                paddingLeft: '5px',
+                paddingBottom: '5px',
+                color: '#f43e3a'
+              }}
+            >
+							{this.state.loss}
+						</div>
+            <div>
+              Attacks on the next day:
+						</div>
 					</div>
-            <AttacksTable
-              date = {this.state.date}
-            />
+          <AttacksTable
+            date = {this.state.date}
+          />
         </div>
       </div>
     );

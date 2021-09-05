@@ -8,7 +8,6 @@ class AnomalyChart extends Component {
     constructor() {
         super();
         this.state = {
-            date: null,
             startValue: new Date("1970-01-30"),
             endValue: new Date("2019-12-30"),
             dataPoints: [{x: new Date("2019-12-30"), y: 0}]
@@ -34,40 +33,18 @@ class AnomalyChart extends Component {
         })
 
         this.setState({
-            dataPoints: dps,
-            isLoaded: true
+            dataPoints: dps
         });
     }
- 
-    /*
-    getAnomalyDataPoints() {
-        var dps = [];
-        var year, month, day;
-        for (year = 1970; year <= 2019; year++) {
-            for (month = 1; month <= 12; month++) {
-                for (day = 1; day <= 30; day++) {
-                    dps.push({ x: new Date(year, month, day), y: day });
-                }
-            }
-        }
-        return dps;       
-    }
-    */
 
     render() {
-        /*
-        if (this.state.dataPoints.length > 0) {
-            alert("render: " + this.state.dataPoints.length + "\nDate: " + this.state.dataPoints[0].x)
-        }
-        */
-
         const anomaly = {
             height: 390,
             animationEnabled: true,
             title: {
             text: "Anomaly Detection",
             fontFamily: "Candara",
-            fontSize: 30,
+            fontSize: 28,
             fontWeight: "bold",
             },
             charts: [
@@ -85,18 +62,17 @@ class AnomalyChart extends Component {
                     },
                 },
                 axisY: {
-                title: "Anomaly Value",
+                title: "Loss",
                 fontFamily: "Candara",
                 minimum: 0,
                 maximum: 1,
                 },
                 data: [
                 {
-                    //dataPoints: this.getAnomalyDataPoints(),
                     dataPoints: this.state.dataPoints,
                     xValueFormatString: "YYYY/MM/DD",
-                    toolTipContent: "Date: {x}</br> Value: {y}",
-                    click: this.props.setDate,
+                    toolTipContent: "Date: {x}</br> Loss: {y}",
+                    click: this.props.setDateAndLoss,
                 },
                 ],
             },

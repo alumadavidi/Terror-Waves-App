@@ -16,9 +16,14 @@ class AttacksTable extends Component {
 	}
 		
 	async getDataPoints() {
+		// Get attacks the day after the selected date
+		var nextDay = new Date(this.props.date)
+		nextDay.setDate(nextDay.getDate() + 2);
+		nextDay = nextDay.toISOString().slice(0, 10);
+
 		let attacksResponse = await axios.get("/AttacksInfo", {
 			params: {
-				date : this.props.date
+				date : nextDay
 			}
 		});
 		var attacksInfo = [];
