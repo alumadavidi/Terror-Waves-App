@@ -181,7 +181,6 @@ class WeatherChart extends Component {
 				type: "rangeColumn",
 				name: "Temperature",
 				showInLegend: true,
-				indexLabel: "{y[#index]}°",
                 xValueFormatString: "YYYY/MM/DD",
 				toolTipContent: "<strong>{x}</strong></br> Max Temperature: {y[1]}°C<br/> Min Temperature: {y[0]}°C",
 				//dataPoints: this.getTemperatureDataPoints()

@@ -6,14 +6,20 @@ class AnomalyGraph extends Component {
   constructor() {
     super();
     this.state = {
-      date: "---"
+      date: "---",
+      loss: "---"
     };
-    this.setDate = this.setDate.bind(this);
+    this.setDateAndLoss = this.setDateAndLoss.bind(this);
   }
 
-  setDate(e) {
+  setDateAndLoss(e) {
     var date = e.dataPoint.x.toISOString().slice(0, 10);
-    this.setState({ date : date });
+    date = date.split('-').join('/');
+    var loss = parseFloat(e.dataPoint.y).toFixed(8);
+    this.setState({ 
+      date : date,
+      loss : loss
+    });
   }
 
   render() {
@@ -33,7 +39,7 @@ class AnomalyGraph extends Component {
           }}
         >
           <AnomalyChart
-            setDate = {this.setDate}
+            setDateAndLoss = {this.setDateAndLoss}
           />
         </div>
         <div
@@ -42,17 +48,57 @@ class AnomalyGraph extends Component {
               paddingBottom: "20px"
             }}
           >
-          <div style= {{float: 'left', fontSize: 16, fontFamily: 'Candara', fontWeight: 'bold', paddingTop: '20px', paddingBottom: '15px', textAlign: 'left'}}>
-						<div style= {{float: 'left'}}>
-              Attacks on the selected date:
+          <div
+            style={{
+              float: 'left',
+              fontSize: 16,
+              fontFamily: 'Candara',
+              fontWeight: 'bold',
+              paddingBottom: '10px',
+              textAlign: 'left'
+            }}
+          >
+						<div
+              style={{
+                float: 'left'
+              }}
+            >
+              Selected Date:
 						</div>
-						<div style= {{float: 'left', paddingLeft: '5px', color: '#f43e3a'}}>
-							{this.state.date != "---" ? this.state.date.split('-').join('/') : this.state.date}
+						<div
+              style={{
+                float: 'left',
+                paddingLeft: '5px',
+                color: '#f43e3a'
+              }}
+            >
+							{this.state.date}
+						</div>
+            <div
+              style={{
+                float: 'left',
+                paddingLeft: '20px'
+              }}
+            >
+              Loss Value:
+						</div>
+						<div
+              style={{
+                float: 'left',
+                paddingLeft: '5px',
+                paddingBottom: '5px',
+                color: '#f43e3a'
+              }}
+            >
+							{this.state.loss}
+						</div>
+            <div>
+              Attacks on the next day:
 						</div>
 					</div>
-            <AttacksTable
-              date = {this.state.date}
-            />
+          <AttacksTable
+            date = {this.state.date}
+          />
         </div>
       </div>
     );
