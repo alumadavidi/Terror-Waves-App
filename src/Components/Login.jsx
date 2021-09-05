@@ -26,7 +26,7 @@ class Login extends Component {
     };
 
     axios
-      .post("/login", obj)
+      .post("/Login", obj)
       .then((res) => {
         console.log(res.status);
         if (res.status === 200) {

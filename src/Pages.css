@@ -7,32 +7,40 @@
 }
 
 .DatePicker {
+  margin-top: 10%;
   float: right;
-  margin-top: 5%;
   margin-right: 5%;
+  margin-left: 70%;
 }
 
 .PredData {
-  margin-left: 10%;
-  margin-right: 30%;
-  width: 60%;
+  margin-left: 5%;
+  float: left;
+  width: 50%;
   padding: 1%;
-  margin-top: 10%;
 }
 
 .PredDataRight {
-  float: right;
-  padding: 3%;
-  margin-top: 10%;
+  float: left;
+  padding: 1%;
   color: dimgray;
-  background-color: white;
-  border: 1px solid gainsboro;
-  width: 45%;
+  width: 50%;
+}
+
+.PredDataRigh {
+  float: right;
+  padding: 1%;
+  color: dimgray;
+  width: 50%;
 }
 .ParamList {
+  height: 250px;
+  background-color: white;
+  border: 1px solid gainsboro;
+  overflow-y: scroll;
+}
+.FeatureList {
   float: right;
-  height: auto;
-  width: 97%;
 }
 .ParamList .row {
   width: 100%;
@@ -62,42 +70,45 @@
 }
 
 .PredTitle {
-  color: turquoise;
-  font-size: 25px;
+  color: rgb(61, 190, 177);
+  font-size: 18px;
 }
 
 .PredData #Acc {
-  font-size: 70px;
-  padding-top: 10%;
+  font-size: 60px;
+  padding-top: 15%;
 }
 
 .ModelView {
   border: 1px solid gainsboro;
   background-color: white;
   color: #696969;
-  height: 150px;
-  width: 80%;
+  height: 130px;
+  width: 700px;
   padding: 1%;
+  display: table-cell;
 }
 
 .ModelsDiv {
   padding: 3%;
+  flex: 1 1 0px;
 }
 
 .AccDiv {
   padding: 3%;
+  flex: 1 1 0px;
 }
 
 .predDiv {
-  float: right;
 }
 
 .PredLeft {
-  float: left;
-  width: 45%;
+  width: 100%;
+  display: table;
+  display: flex;
+  flex-direction: row;
 }
 .Container {
-  background-color: blue;
   height: 100%;
 }
 
@@ -185,4 +196,10 @@
   font-size: "50%";
   width: "70%";
   border: "1px solid black";
+}
+
+.ConfusionMatrix {
+  margin-top: 34%;
+  margin-right: 0%;
+  float: right;
 }
