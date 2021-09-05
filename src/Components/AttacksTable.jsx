@@ -47,16 +47,16 @@ class AttacksTable extends Component {
 		if (this.state.info.length == 0) {
 			attacks.push(
 				<tr style={{fontWeight: "bold"}}>
-					<td style={{fontSize: "22"}}>
+					<td className = "attacksTable" style={{fontSize: "22"}}>
 						---
 					</td>
-					<td>
+					<td className = "attacksTable">
 						---
 					</td>
-					<td>
+					<td className = "attacksTable">
 						---
 					</td>
-					<td>
+					<td className = "attacksTable">
 						---
 					</td>
 				</tr>
@@ -65,16 +65,16 @@ class AttacksTable extends Component {
 			for (var i=0; i < this.state.info.length; i++) {
 				attacks.push(
 					<tr>
-						<td>
+						<td className = "attacksTable">
 							{this.state.info[i].city}
 						</td>
-						<td>
+						<td className = "attacksTable">
 							{this.state.info[i].wounded}
 						</td>
-						<td>
+						<td className = "attacksTable">
 							{this.state.info[i].deaths}
 						</td>
-						<td style={{textAlign: "left"}}>
+						<td className = "attacksTable" style={{textAlign: "left"}}>
 							{this.state.info[i].summary}
 						</td>
 					</tr>
@@ -85,6 +85,7 @@ class AttacksTable extends Component {
 		return (
 		  <div>
 			  <table
+			  	className = "attacksTable"
 				id="information_table"
 				style={{
 				  width: "96%",
@@ -93,10 +94,10 @@ class AttacksTable extends Component {
 			  >
 				<tbody>
 					<tr>
-						<th style={{width: "18%"}}>City</th>
-						<th style={{width: "10%"}}>Wounded</th>
-						<th style={{width: "10%"}}>Deaths</th>
-						<th style={{width: "62%"}}>Attack Information</th>
+						<th className = "attacksTable" style={{width: "18%"}}>City</th>
+						<th className = "attacksTable" style={{width: "10%"}}>Wounded</th>
+						<th className = "attacksTable" style={{width: "10%"}}>Deaths</th>
+						<th className = "attacksTable" style={{width: "62%"}}>Attack Information</th>
 					</tr>
 					{attacks}
 				</tbody>
