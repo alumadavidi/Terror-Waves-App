@@ -12,70 +12,26 @@ class ModelHeatmap extends Component {
         };
     }
 
-    /*
-    // Replace "getModelDataPoints()" with "componentDidMount()"
     componentDidMount() {
         this.getDataPoints();
     }
-    */
-    
-
-    /*
-    // Remove
-    componentDidUpdate(prevProps) {
-        // only update chart if the data has changed
-        if (prevProps.year !== this.props.year) {
-            this.getDataPoints();
-        }
-    }
-    */
 
     async getDataPoints() {
         let response = await axios.get("/ModelPredictions");
         var dps = [];
         response.data.map((modelData) => {
-            //if (new Date(modelData.date).getFullYear() === this.props.year && new Date(modelData.date).getMonth() === 1) {
-                dps.push({ date: new Date(modelData.date), count: 1 });
-            //}
+            dps.push({ date: new Date(modelData.date), count: 1 });
         })
         this.setState({
             dataPoints: dps
         });
     }
     
-    // Replace "getModelDataPoints()" with "componentDidMount()"
-    getModelDataPoints() {
-        var year = this.props.year;
-
-        var dps = [
-            { date: '2019/01/01', count: 1 },
-            { date: '2019/01/11', count: 1 },
-            ...[...Array(17)].map((_, idx) => ({ date: `2019/01/${idx + 10}`, count: 1, })),
-            ...[...Array(17)].map((_, idx) => ({ date: `2019/02/${idx + 10}`, count: 1, })),
-            { date: '2019/04/12', count: 1 },
-            { date: '2019/05/01', count: 1 },
-            { date: '2019/05/02', count: 1 },
-            { date: '2019/05/03', count: 1 },
-            { date: '2019/05/04', count: 1 },
-            { date: '2019/05/08', count: 1 },
-            { date: '2019/12/31', count: 1 }
-            ];
-        return dps;
-    }
-    
-    
     render() {
-        /*
-        if (this.state.dataPoints.length > 0) {
-            alert(this.state.dataPoints.length)
-        }
-        */
-
         return (
             <div>
                 <HeatMap
-                    value = {this.getModelDataPoints()}
-                    //value = {this.state.dataPoints}
+                    value = {this.state.dataPoints}
                     rectSize = {14}
                     width = {900}
                     panelColors= {{
