@@ -132,14 +132,15 @@ button:hover {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.attacksTable {  
+.attacksTable {
   border: 0.5px solid black;
   border-collapse: collapse;
   font-family: "candara";
-	font-size: 15px;
+  font-size: 15px;
 }
 
-th.attacksTable, td.attacksTable {  
+th.attacksTable,
+td.attacksTable {
   padding: 10px;
 }
 

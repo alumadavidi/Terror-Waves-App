@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { parse } from "papaparse";
 import axios from "axios";
 import "../Pages.css";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
