@@ -176,7 +176,7 @@ class HolidaysHeatmap extends Component {
                             }
                         }
 
-                        if (new Date(this.props.startDate) <= new Date(data.date)) {
+                        if (new Date(this.props.startDate).setHours(0,0,0,0) <= new Date(data.date).setHours(0,0,0,0)) {
                             return (
                                 <Tooltip
                                     key={props.key}

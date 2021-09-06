@@ -57,7 +57,7 @@ class ElectionsHeatmap extends Component {
                     startDate = {new Date(this.props.startDate)}
                     endDate = {new Date(this.props.endDate)}
                     rectRender = {(props, data) => {
-                        if (new Date(this.props.startDate) <= new Date(data.date)) {
+                        if (new Date(this.props.startDate).setHours(0,0,0,0) <= new Date(data.date).setHours(0,0,0,0)) {
                             return (                           
                                 <Tooltip
                                     key={props.key}
