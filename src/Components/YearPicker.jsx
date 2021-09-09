@@ -13,7 +13,6 @@ class YearPicker extends Component {
 
   handleChange(selectedOption) {
     this.setState({ selectedOption });
-    alert('Selected Year: ' + selectedOption.value);
     this.props.updateModel(selectedOption.value);
   };
 

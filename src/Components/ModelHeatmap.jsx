@@ -48,8 +48,6 @@ class ModelHeatmap extends Component {
                             placement="top"
                             content={<span>Date: {data.date}<br></br>Prediction: {data.count === 1 ? 'V' : 'X'}</span>}>
                             <rect {...props} onClick={() => {
-                                alert("Heatmap\nDate: " + data.date);
-                                alert("Heatmap\nYear: " + this.props.year);
                                 this.props.updateCharts(data.date)
                                 }}
                             />
