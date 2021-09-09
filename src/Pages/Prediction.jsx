@@ -14,7 +14,7 @@ class Prediction extends Component {
     pred: undefined,
     modelAcc: undefined,
     testAcc: undefined,
-    params: [],
+    getAllReqFlag: false,
   };
 
   updateConfusionMatrix = (fullYear) => {
@@ -52,8 +52,8 @@ class Prediction extends Component {
       })
       .then((res) => {
         console.log(res.status);
+
         if (res.status === 200) {
-          console.log(res.data);
           this.setState({
             hyperParams: res.data[0],
           });
@@ -77,8 +77,14 @@ class Prediction extends Component {
       })
       .then((res) => {
         console.log(res.status);
+
+        console.log(res.data[0]);
+        console.log(res.data);
         if (res.status === 200) {
           console.log(res.data);
+          this.setState({
+            features: res.data,
+          });
         }
       })
       .catch((error) => {
@@ -90,19 +96,89 @@ class Prediction extends Component {
       });
   };
 
-  updateAcc = (fullYear) => {};
+  updateAcc = (fullYear) => {
+    axios
+      .get("/ModelDateResult", {
+        params: {
+          year_accuracy: fullYear,
+        },
+      })
+      .then((res) => {
+        console.log(res.status);
+
+        console.log(res.data[0]);
+        console.log(res.data[0].model_accuracy);
+        if (res.status === 200) {
+          console.log(res.data);
+          this.setState({
+            modelAcc: Number(res.data[0].model_accuracy.toFixed(1)),
+            testAcc: Number(res.data[0].test_accuracy.toFixed(1)),
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          alert("There is no features dgsfgsfor " + String(fullYear));
+        } else {
+          alert("Error! Something went wrong - server faild");
+        }
+      });
+  };
   updatePred = (fullYear) => {};
 
+  initObjects = () => {
+    this.setState({
+      hyperParams: {},
+      confusionMatrix: {},
+      features: {},
+      date: new Date(),
+      pred: undefined,
+      modelAcc: undefined,
+      testAcc: undefined,
+      getAllReqFlag: false,
+    });
+  };
+
+  updateFlag = () => {
+    if (
+      Boolean(this.state.confusionMatrix) &&
+      Boolean(this.state.features) &&
+      Boolean(this.state.pred) &&
+      Boolean(this.state.modelAcc) &&
+      Boolean(this.state.testAcc)
+    ) {
+      this.setState({ getAllReqFlag: true });
+    }
+  };
+
   update = (dateValue) => {
+    console.log(
+      Boolean(this.state.confusionMatrix) &&
+        Boolean(this.state.features) &&
+        Boolean(this.state.pred) &&
+        Boolean(this.state.modelAcc) &&
+        Boolean(this.state.testAcc)
+    );
     this.setState({ date: new Date(dateValue) });
     let dateTime = new Date(dateValue);
     let fullYear = dateTime.getFullYear();
     dateTime.setDate(dateTime.getDate() + 1);
+
+    this.initObjects();
+
     this.updateConfusionMatrix(fullYear);
     this.updateHyperParams(fullYear);
     this.updateFeatures(fullYear);
     this.updatePred(dateTime);
     this.updateAcc(fullYear);
+    this.updateFlag();
+    console.log(
+      Boolean(this.state.confusionMatrix) &&
+        Boolean(this.state.features) &&
+        Boolean(this.state.pred) &&
+        Boolean(this.state.modelAcc) &&
+        Boolean(this.state.testAcc)
+    );
 
     this.forceUpdate();
   };
