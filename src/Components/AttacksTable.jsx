@@ -28,11 +28,15 @@ class AttacksTable extends Component {
 		});
 		var attacksInfo = [];
 		attacksResponse.data.map((attacksData) => {
+			var attackSummary = attacksData.summary;
+			if (attacksData.summary === "\"") {
+				attackSummary = "---"
+			}
 			attacksInfo.push({
 				city: attacksData.city,
 				wounded: attacksData.nwound,
 				deaths: attacksData.ndeath,
-				summary: attacksData.summary
+				summary: attackSummary
 			});
 		})
 
