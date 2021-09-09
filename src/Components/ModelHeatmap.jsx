@@ -8,7 +8,8 @@ class ModelHeatmap extends Component {
     constructor() {
         super();
         this.state = {
-            dataPoints: []
+            dataPoints: [],
+            success: false
         };
     }
 
@@ -16,15 +17,28 @@ class ModelHeatmap extends Component {
         this.getDataPoints();
     }
 
+    componentDidUpdate() {
+        if (this.state.success === false) {
+            this.getDataPoints();
+        }
+    }
+
     async getDataPoints() {
-        let response = await axios.get("/ModelPredictions");
-        var dps = [];
-        response.data.map((modelData) => {
-            dps.push({ date: new Date(modelData.date), count: 1 });
-        })
-        this.setState({
-            dataPoints: dps
-        });
+        try {
+            let response = await axios.get("/ModelPredictions");
+            var dps = [];
+            response.data.map((modelData) => {
+                dps.push({ date: new Date(modelData.date), count: 1 });
+            })
+            this.setState({
+                dataPoints: dps,
+                success: true
+            });
+        } catch (err) {
+			this.setState({
+				success: false
+			});
+        }
     }
     
     render() {

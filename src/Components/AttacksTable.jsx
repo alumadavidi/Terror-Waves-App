@@ -5,44 +5,48 @@ class AttacksTable extends Component {
 	constructor() {
 		super();
 		this.state = {
-			info: []
+			info: [],
+			success: false
 		};
 	}
 
     componentDidUpdate(prevProps) {
-        if (prevProps.date !== this.props.date) {
+        if (prevProps.date !== this.props.date || this.state.success === false) {
 			this.getDataPoints();
         }
 	}
 		
 	async getDataPoints() {
-		// Get attacks the day after the selected date
-		var nextDay = new Date(this.props.date)
-		nextDay.setDate(nextDay.getDate() + 2);
-		nextDay = nextDay.toISOString().slice(0, 10);
+		try {
+			// Get attacks the day after the selected date
+			var nextDay = new Date(this.props.date)
+			nextDay.setDate(nextDay.getDate() + 2);
+			nextDay = nextDay.toISOString().slice(0, 10);
 
-		let attacksResponse = await axios.get("/AttacksInfo", {
-			params: {
-				date : nextDay
-			}
-		});
-		var attacksInfo = [];
-		attacksResponse.data.map((attacksData) => {
-			var attackSummary = attacksData.summary;
-			if (attacksData.summary === "\"") {
-				attackSummary = "---"
-			}
-			attacksInfo.push({
-				city: attacksData.city,
-				wounded: attacksData.nwound,
-				deaths: attacksData.ndeath,
-				summary: attackSummary
+			let attacksResponse = await axios.get("/AttacksInfo", {
+				params: {
+					date : nextDay
+				}
 			});
-		})
+			var attacksInfo = [];
+			attacksResponse.data.map((attacksData) => {
+				attacksInfo.push({
+					city: attacksData.city,
+					wounded: attacksData.nwound,
+					deaths: attacksData.ndeath,
+					summary: attacksData.summary
+				});
+			})
 
-        this.setState({
-            info: attacksInfo
-        });
+			this.setState({
+				info: attacksInfo,
+				success: true
+			});
+		} catch (err) {
+			this.setState({
+				success: false
+			});
+        }
 	}
 	
 	render() {
@@ -67,6 +71,18 @@ class AttacksTable extends Component {
 			)
 		} else {
 			for (var i=0; i < this.state.info.length; i++) {
+				let summary;
+				if (this.state.info[i].summary === "\"") {
+					summary =
+					<td className = "attacksTable">
+						---
+					</td>
+				} else {
+					summary =
+					<td className = "attacksTable" style={{textAlign: "left"}}>
+						{this.state.info[i].summary}
+					</td>
+				}
 				attacks.push(
 					<tr>
 						<td className = "attacksTable">
@@ -78,9 +94,7 @@ class AttacksTable extends Component {
 						<td className = "attacksTable">
 							{this.state.info[i].deaths}
 						</td>
-						<td className = "attacksTable" style={{textAlign: "left"}}>
-							{this.state.info[i].summary}
-						</td>
+						{summary}
 					</tr>
 				)
 			}

@@ -8,7 +8,8 @@ class ElectionsHeatmap extends Component {
     constructor() {
         super();
         this.state = {
-            dataPoints: []
+            dataPoints: [],
+            success: false
         };
     }
    
@@ -17,29 +18,36 @@ class ElectionsHeatmap extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.startDate !== this.props.startDate) {
+        if (prevProps.startDate !== this.props.startDate || this.state.success === false) {
             this.getDataPoints();
         }
 	}
     
     async getDataPoints() {
-        let response = await axios.get("/Elections", {
-            params: {
-                startDate : this.props.startDate,
-                endDate : this.props.endDate
-            }
-        });
-        var dps = [];
-        response.data.map((electionsData) => {
-            var date = new Date(electionsData.date)
-		    date.setDate(date.getDate());
-		    var formattedDate = date.toISOString().slice(0, 10);
-			dps.push({ date: formattedDate, count: 1 });
-        })
+        try {
+            let response = await axios.get("/Elections", {
+                params: {
+                    startDate : this.props.startDate,
+                    endDate : this.props.endDate
+                }
+            });
+            var dps = [];
+            response.data.map((electionsData) => {
+                var date = new Date(electionsData.date)
+                date.setDate(date.getDate());
+                var formattedDate = date.toISOString().slice(0, 10);
+                dps.push({ date: formattedDate, count: 1 });
+            })
 
-        this.setState({
-            dataPoints: dps
-        });
+            this.setState({
+                dataPoints: dps,
+                success: true
+            });
+        } catch (err) {
+			this.setState({
+				success: false
+			});
+		}
     }   
     
     render() {

@@ -10,8 +10,8 @@ class AttacksChart extends Component {
 		this.state = {
             attacksDataPoints: [],
 			deathsDataPoints: [],
-			woundedDataPoints: []
-
+			woundedDataPoints: [],
+			success: false
         };
 		this.toggleAttacksDataSeries = this.toggleAttacksDataSeries.bind(this);
 	}
@@ -21,36 +21,43 @@ class AttacksChart extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.startDate !== this.props.startDate) {
+        if (prevProps.startDate !== this.props.startDate || this.state.success === false) {
 			this.getDataPoints();
         }
 	}
 
 	async getDataPoints() {
-        let response = await axios.get("/Attacks", {
-            params: {
-                startDate : this.props.startDate,
-                endDate : this.props.endDate
-            }
-          });
-        var attacksDps = [], deathsDps = [], woundedDps = [];
-        response.data.map((attacksData) => {
-			if (attacksData.num_attack >= 0) {
-				attacksDps.push({ x: new Date(attacksData.date), y: attacksData.num_attack });
-			}
-			if (attacksData.num_deaths >= 0) {
-				deathsDps.push({ x: new Date(attacksData.date), y: attacksData.num_deaths });
-			}
-			if (attacksData.num_wounded >= 0) {
-				woundedDps.push({ x: new Date(attacksData.date), y: attacksData.num_wounded });
-			}
-        })
+		try {
+			let response = await axios.get("/Attacks", {
+				params: {
+					startDate : this.props.startDate,
+					endDate : this.props.endDate
+				}
+			});
+			var attacksDps = [], deathsDps = [], woundedDps = [];
+			response.data.map((attacksData) => {
+				if (attacksData.num_attack >= 0) {
+					attacksDps.push({ x: new Date(attacksData.date), y: attacksData.num_attack });
+				}
+				if (attacksData.num_deaths >= 0) {
+					deathsDps.push({ x: new Date(attacksData.date), y: attacksData.num_deaths });
+				}
+				if (attacksData.num_wounded >= 0) {
+					woundedDps.push({ x: new Date(attacksData.date), y: attacksData.num_wounded });
+				}
+			})
 
-        this.setState({
-            attacksDataPoints: attacksDps,
-			deathsDataPoints: deathsDps,
-			woundedDataPoints: woundedDps
-        });
+			this.setState({
+				attacksDataPoints: attacksDps,
+				deathsDataPoints: deathsDps,
+				woundedDataPoints: woundedDps,
+				success: true
+			});
+		} catch (err) {
+			this.setState({
+				success: false
+			});
+		}
 	}
 
 	toggleAttacksDataSeries(e) {

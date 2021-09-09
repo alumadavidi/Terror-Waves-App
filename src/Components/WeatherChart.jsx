@@ -9,7 +9,8 @@ class WeatherChart extends Component {
 		super();
         this.state = {
             temperatureDataPoints: [],
-            precipitationDataPoints: []
+            precipitationDataPoints: [],
+			success: false
         };
 		this.toggleWeatherDataSeries = this.toggleWeatherDataSeries.bind(this);
 	}
@@ -19,28 +20,44 @@ class WeatherChart extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.startDate !== this.props.startDate) {
+        if (prevProps.startDate !== this.props.startDate || this.state.success === false) {
             this.getDataPoints();
         }
     }
     
     async getDataPoints() {
-        let response = await axios.get("/Weather", {
-            params: {
-                startDate : this.props.startDate,
-                endDate : this.props.endDate
-            }
-          });
-        var temperatureDps = [], precipitationDps = [];
-        response.data.map((weatherData) => {
-            temperatureDps.push({ x: new Date(weatherData.date), y: [weatherData.min_temp, weatherData.max_temp] });
-            precipitationDps.push({ x: new Date(weatherData.date), y: weatherData.perciption });
-        })
+		try {
+			let response = await axios.get("/Weather", {
+				params: {
+					startDate : this.props.startDate,
+					endDate : this.props.endDate
+				}
+			});
+			var temperatureDps = [], precipitationDps = [];
+			response.data.map((weatherData) => {
+				temperatureDps.push({ x: new Date(weatherData.date), y: [weatherData.min_temp, weatherData.max_temp] });
+				precipitationDps.push({ x: new Date(weatherData.date), y: weatherData.perciption });
+			})
 
-        this.setState({
-            temperatureDataPoints: temperatureDps,
-            precipitationDataPoints: precipitationDps
-        });
+			this.setState({
+				temperatureDataPoints: temperatureDps,
+				precipitationDataPoints: precipitationDps,
+				success: true
+			});
+		} catch (err) {
+			if (err.message.includes('404') || err.message.includes('500')) {
+				//alert(err);
+			} else {				
+				this.setState({
+					success: false
+				});
+			}
+
+			/*
+			this.props.setSuccess(false);
+			*/
+
+		}
     }
 
 	toggleWeatherDataSeries(e) {

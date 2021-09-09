@@ -10,7 +10,8 @@ class AnomalyChart extends Component {
         this.state = {
             startValue: new Date("1970-01-30"),
             endValue: new Date("2019-12-30"),
-            dataPoints: [{x: new Date("2019-12-30"), y: 0}]
+            dataPoints: [{x: new Date("2019-12-30"), y: 0}],
+            success: false
         };
     }
    
@@ -24,17 +25,30 @@ class AnomalyChart extends Component {
     componentDidMount() {
         this.getDataPoints();
     }
-    
-    async getDataPoints() {       
-        let response = await axios.get("/Anomalies");
-        var dps = [];
-        response.data.map((anomalyData) => {
-            dps.push({ x: new Date(anomalyData.date), y: anomalyData.loss });
-        })
 
-        this.setState({
-            dataPoints: dps
-        });
+    componentDidUpdate() {
+        if (this.state.success === false) {
+            this.getDataPoints();
+        }
+    }
+    
+    async getDataPoints() {
+        try {
+            let response = await axios.get("/Anomalies");
+            var dps = [];
+            response.data.map((anomalyData) => {
+                dps.push({ x: new Date(anomalyData.date), y: anomalyData.loss });
+            })
+
+            this.setState({
+                dataPoints: dps,
+                success: true
+            });
+        } catch (err) {
+			this.setState({
+				success: false
+			});
+        }
     }
 
     render() {
