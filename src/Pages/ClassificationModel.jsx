@@ -7,6 +7,7 @@ import GoogleTrendsPalestineChart from '../Components/GoogleTrendsPalestineChart
 import HolidaysHeatmap from '../Components/HolidaysHeatmap';
 import ElectionsHeatmap from '../Components/ElectionsHeatmap';
 import YearPicker from '../Components/YearPicker';
+import ErrorScreen from '../Components/ErrorScreen';
 
 class ClassificationModel extends Component {
 	constructor() {
@@ -15,12 +16,34 @@ class ClassificationModel extends Component {
 			year: 2019,
 			date: "2019/12/31",
 			graphsStartDate : "2019/12/01",
-			graphsEndDate : "2019/12/30"
+			graphsEndDate : "2019/12/30",
+
+			/*
+			// Successful connection to the database
+			success : null
+			*/
+
 		}
 		this.updateModel = this.updateModel.bind(this);
 		this.updateCharts = this.updateCharts.bind(this);
+
+		/*
+		this.setSuccess = this.setSuccess.bind(this);	
+		this.resetSuccess = this.resetSuccess.bind(this);
+		*/
+
 	}
 
+	/*
+	shouldComponentUpdate(nextState) {
+		if (nextState.success === null) { 
+		  return false;
+		}
+		return true;
+	}
+	*/
+	
+	
 	updateModel(selectedYear) {
 		this.setState({
 			year: selectedYear,
@@ -46,6 +69,26 @@ class ClassificationModel extends Component {
 			graphsEndDate : formattedEndDate
 		});
 	}
+
+	/*
+	setSuccess(status) {
+		alert("hi");
+		
+		this.setState({
+			success : status
+		});
+		
+	}
+	*/
+	
+
+	/*
+	resetSuccess() {
+		this.setState({
+			success : null
+		});
+	}
+	*/
 
     render() {
 		let googleAndSpecialDays;
@@ -108,53 +151,73 @@ class ClassificationModel extends Component {
 			</div>
 		}
 
-		return (
-			<div id = "classification_charts">
-				<div id = "model_heatmap" style= {{fontFamily: 'Candara', fontWeight: 'bold', display: 'inline-block', background: 'white', width: '94%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
-					<div id = "model_header" style= {{fontSize: 25}}>
-						Classification Model
+		/*
+		if (this.state.success !== false) {
+		*/
+		//if (false) {
+			return (
+				<div id = "classification_charts">
+					<div id = "model_heatmap" style= {{fontFamily: 'Candara', fontWeight: 'bold', display: 'inline-block', background: 'white', width: '94%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
+						<div id = "model_header" style= {{fontSize: 25}}>
+							Classification Model
+						</div>
+						<div id = "year_picker">
+							<div style= {{float: 'left', fontSize: 16, paddingLeft: '15px', paddingRight: '15px', paddingTop: '9px'}}>
+								Year: 
+							</div>
+							<div style= {{float: 'left', fontSize: 14, width: '12%', paddingBottom: '8px', marginRight: '60%'}}>
+								<YearPicker
+									updateModel = {this.updateModel}
+								/>
+							</div>
+						</div>
+						<div style= {{float: 'left', fontSize: 15, paddingTop: '9px', textAlign: 'left'}}>
+							<div style= {{float: 'left'}}>
+								Selected Date: 
+							</div>
+							<div style= {{float: 'left', paddingLeft: '5px', paddingBottom: '10px', color: '#f43e3a'}}>
+								{this.state.date}
+							</div>
+						</div>
+						<ModelHeatmap
+							updateCharts = {this.updateCharts}
+							year = {this.state.year}
+						/>
 					</div>
-					<div id = "year_picker">
-						<div style= {{float: 'left', fontSize: 16, paddingLeft: '15px', paddingRight: '15px', paddingTop: '9px'}}>
-							Year: 
-						</div>
-						<div style= {{float: 'left', fontSize: 14, width: '12%', paddingBottom: '8px', marginRight: '60%'}}>
-							<YearPicker
-								updateModel = {this.updateModel}
-							/>
-						</div>
+					<div style= {{fontFamily: 'Candara', fontSize: 18, fontWeight: 'bold', paddingLeft: '15px', paddingRight: '15px', paddingBottom: '10px'}}>
+						Data of the 30 days before the selected date
 					</div>
-					<div style= {{float: 'left', fontSize: 15, paddingTop: '9px', textAlign: 'left'}}>
-						<div style= {{float: 'left'}}>
-							Selected Date: 
-						</div>
-						<div style= {{float: 'left', paddingLeft: '5px', paddingBottom: '10px', color: '#f43e3a'}}>
-							{this.state.date}
-						</div>
+					<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+						<WeatherChart
+
+							/*
+							setSuccess = {this.setSuccess}
+							*/
+
+							startDate = {this.state.graphsStartDate}
+							endDate = {this.state.graphsEndDate}
+						/>
 					</div>
-					<ModelHeatmap
-						updateCharts = {this.updateCharts}
-						year = {this.state.year}
+					<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+						<AttacksChart 
+							startDate = {this.state.graphsStartDate}
+							endDate = {this.state.graphsEndDate}
+						/>
+					</div>
+					{googleAndSpecialDays}
+				</div>
+			)
+		/*
+		} else {
+			return (
+				<div>
+					<ErrorScreen
+						refresh = {this.setSuccess}
 					/>
 				</div>
-				<div style= {{fontFamily: 'Candara', fontSize: 18, fontWeight: 'bold', paddingLeft: '15px', paddingRight: '15px', paddingBottom: '10px'}}>
-					Data of the 30 days before the selected date
-				</div>
-				<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-					<WeatherChart
-						startDate = {this.state.graphsStartDate}
-						endDate = {this.state.graphsEndDate}
-					/>
-				</div>
-				<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
-					<AttacksChart 
-						startDate = {this.state.graphsStartDate}
-						endDate = {this.state.graphsEndDate}
-					/>
-				</div>
-				{googleAndSpecialDays}
-			</div>
-		);
+			)
+		}
+		*/
     }
 }
 
