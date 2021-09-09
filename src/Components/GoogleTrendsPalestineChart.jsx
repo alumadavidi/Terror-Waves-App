@@ -34,7 +34,6 @@ class GoogleTrendsPalestineChart extends Component {
         this.getDataPoints();
     }
 
-	
     componentDidUpdate(prevProps) {
         if (prevProps.startDate !== this.props.startDate && this.props.year >= 2004) {
 			this.getDataPoints();
@@ -103,23 +102,6 @@ class GoogleTrendsPalestineChart extends Component {
 		}
         this.google_trends_palestine_chart.render();
 	}
-
-	/*
-	getGoogleTrendsPalestineDataPoints(word) {
-		var startDate = this.props.startDate;
-		var endDate = this.props.endDate;
-
-		var dps = []
-		var year = 2019
-		var month = 1
-		var day, value
-		for (day = 1; day <= 30; day++) {
-			value = Math.floor(Math.random() * 100);
-			dps.push({x: new Date(year, month, day), y: value})
-		}
-		return dps;
-	}
-	*/
     
     render() {
 		const googleTrendsPalestine = {
@@ -159,7 +141,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.شهادة
 			},
 			{
@@ -168,7 +149,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.شهيد
 			},
 			{
@@ -177,7 +157,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: true,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.جهاد
 			},
 			{
@@ -186,7 +165,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.كافر
 			},
 			{
@@ -195,7 +173,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.كفار
 			},
 			{
@@ -204,7 +181,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.الأقصى
 			},
 			{
@@ -213,7 +189,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.وضوء
 			},
 			{
@@ -222,7 +197,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.عملية
 			},
 			{
@@ -231,7 +205,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.تبرعات
 			},
 			{
@@ -240,7 +213,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.صدقة
 			},
 			{
@@ -249,7 +221,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.حلق
 			},
 			{
@@ -258,7 +229,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.فتوى
 			},
 			{
@@ -267,7 +237,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.الكوثر
 			},
 			{
@@ -276,7 +245,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.استشهاد
 			},
 			{
@@ -285,7 +253,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.الحور_العين
 			},
 			{
@@ -294,7 +261,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.سورة_الفاتحة
 			},
 			{
@@ -303,7 +269,6 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.سورة_الانفال
 			},
 			{
@@ -312,11 +277,9 @@ class GoogleTrendsPalestineChart extends Component {
 				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
-				//dataPoints: this.getGoogleTrendsPalestineDataPoints("شهادة")
 				dataPoints: this.state.في_سبيل_الله
 			}]
 		}
-
 
         return (
 			<div>

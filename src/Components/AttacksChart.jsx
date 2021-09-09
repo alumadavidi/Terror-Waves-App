@@ -53,7 +53,6 @@ class AttacksChart extends Component {
         });
 	}
 
-
 	toggleAttacksDataSeries(e) {
 		if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
 			e.dataSeries.visible = false;
@@ -63,53 +62,6 @@ class AttacksChart extends Component {
 		}
         this.attacks_chart.render();
 	}
-
-	/*
-    getNumAttacksDataPoints() {
-		var startDate = this.props.startDate;
-		var endDate = this.props.endDate;
-
-		var dps = []
-		var year = 2019
-		var month = 1
-		var day, value
-		for (day = 1; day <= 30; day++) {
-			value = Math.floor(Math.random() * 3);
-			dps.push({x: new Date(year, month, day), y: value})
-		}
-		return dps;
-	}
-
-	getNumDeathsDataPoints() {
-		var startDate = this.props.startDate;
-		var endDate = this.props.endDate;
-
-		var dps = []
-		var year = 2019
-		var month = 1
-		var day, value
-		for (day = 1; day <= 30; day++) {
-			value = Math.floor(Math.random() * 3);
-			dps.push({x: new Date(year, month, day), y: value})
-		}
-		return dps;
-	}
-
-	getNumWoundedDataPoints() {
-		var startDate = this.props.startDate;
-		var endDate = this.props.endDate;
-
-		var dps = []
-		var year = 2019
-		var month = 1
-		var day, value
-		for (day = 1; day <= 30; day++) {
-			value = Math.floor(Math.random() * 3);
-			dps.push({x: new Date(year, month, day), y: value})
-		}
-		return dps;
-	}
-	*/
     
     render() {
         const attacks = {
@@ -144,7 +96,6 @@ class AttacksChart extends Component {
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
 				toolTipContent: "<strong>{x}</strong></br> Attacks: {y}",
-				//dataPoints: this.getNumAttacksDataPoints()
 				dataPoints: this.state.attacksDataPoints
 			},
 			{
@@ -152,7 +103,6 @@ class AttacksChart extends Component {
 				name: "Deaths",
 				showInLegend: true,
 				toolTipContent: "Deaths: {y}",
-				//dataPoints: this.getNumDeathsDataPoints()
 				dataPoints: this.state.deathsDataPoints
 			},
 			{
@@ -160,7 +110,6 @@ class AttacksChart extends Component {
 				name: "Wounded",
 				showInLegend: true,
 				toolTipContent: "Wounded: {y}",
-				//dataPoints: this.getNumWoundedDataPoints()
 				dataPoints: this.state.woundedDataPoints
 			}]
 		}

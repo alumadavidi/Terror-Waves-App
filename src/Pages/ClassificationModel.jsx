@@ -8,7 +8,6 @@ import HolidaysHeatmap from '../Components/HolidaysHeatmap';
 import ElectionsHeatmap from '../Components/ElectionsHeatmap';
 import YearPicker from '../Components/YearPicker';
 
-
 class ClassificationModel extends Component {
 	constructor() {
 		super();
@@ -23,7 +22,6 @@ class ClassificationModel extends Component {
 	}
 
 	updateModel(selectedYear) {
-		alert("Model Page\nYear: " + selectedYear);
 		this.setState({
 			year: selectedYear,
 			date: selectedYear + "/12/31",
@@ -33,8 +31,6 @@ class ClassificationModel extends Component {
 	}
 	
 	updateCharts(selectedDate) {
-		alert("Model Page\nDate: " + selectedDate);
-
 		// Get graphs start date (last 30 days)
 		var startDate = new Date(selectedDate)
 		startDate.setDate(startDate.getDate() - 31);
