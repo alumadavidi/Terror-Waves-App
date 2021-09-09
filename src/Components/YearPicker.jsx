@@ -18,7 +18,7 @@ class YearPicker extends Component {
 
   getOptions() {
     var years = []
-    for (var year = 2019; year >= 1970; year--) {
+    for (var year = 2019; year >= 1990; year--) {
         years.push({value: year, label: year})
     }
     return years;
