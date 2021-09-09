@@ -69,8 +69,10 @@
 }
 
 .PredData #Acc {
-  font-size: 60px;
+  font-size: 43px;
   padding-top: 15%;
+  text-align: center;
+  margin-top: 15%;
 }
 
 .ModelView {
@@ -193,7 +195,7 @@
 }
 
 .ConfusionMatrix {
-  margin-top: 34%;
+  margin-top: 30%;
   margin-right: 10%;
   float: right;
 }

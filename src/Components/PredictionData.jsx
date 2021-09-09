@@ -52,7 +52,7 @@ class PredictionData extends Component {
           ></HyperParams>
         </div>
         <div className="PredDataRight">
-          <h3 className="PredTitle"> Features</h3>
+          <h3 className="PredTitle">Most influential features (%)</h3>
 
           <HyperParams
             getData={() => {
