@@ -25,13 +25,10 @@ class Prediction extends Component {
         },
       })
       .then((res) => {
-        console.log(res.status);
         if (res.status === 200) {
           this.setState({
             confusionMatrix: res.data[0],
           });
-
-          console.log(this.state);
         }
       })
       .catch((error) => {
@@ -51,8 +48,6 @@ class Prediction extends Component {
         },
       })
       .then((res) => {
-        console.log(res.status);
-
         if (res.status === 200) {
           this.setState({
             hyperParams: res.data[0],
@@ -76,12 +71,7 @@ class Prediction extends Component {
         },
       })
       .then((res) => {
-        console.log(res.status);
-
-        console.log(res.data[0]);
-        console.log(res.data);
         if (res.status === 200) {
-          console.log(res.data);
           this.setState({
             features: res.data,
           });
@@ -104,19 +94,15 @@ class Prediction extends Component {
         },
       })
       .then((res) => {
-        console.log(res.status);
-
-        console.log(res.data[0]);
-        console.log(res.data[0].model_accuracy);
         if (res.status === 200) {
-          console.log(res.data);
           this.setState({
-            modelAcc: Number(res.data[0].model_accuracy.toFixed(1)),
-            testAcc: Number(res.data[0].test_accuracy.toFixed(1)),
+            modelAcc: Number(res.data[0].model_accuracy).toFixed(1),
+            testAcc: Number(res.data[0].test_accuracy).toFixed(1),
           });
         }
       })
       .catch((error) => {
+        console.log(error);
         if (error.response.status === 404) {
           alert("There is no features dgsfgsfor " + String(fullYear));
         } else {
@@ -124,14 +110,33 @@ class Prediction extends Component {
         }
       });
   };
-  updatePred = (fullYear) => {};
+  updatePred = (dateTime) => {
+    axios
+      .get("/ModelPredictions", {
+        params: {
+          date: dateTime,
+        },
+      })
+      .then((res) => {
+        console.log(res.data[0]);
+        if (res.status === 200) {
+          this.setState({ pred: Boolean(res.data[0].prediction) });
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          alert("There is no features dgsfgsfor " + String(dateTime));
+        } else {
+          alert("Error! Something went wrong - server faild");
+        }
+      });
+  };
 
   initObjects = () => {
     this.setState({
       hyperParams: {},
       confusionMatrix: {},
       features: {},
-      date: new Date(),
       pred: undefined,
       modelAcc: undefined,
       testAcc: undefined,
@@ -143,42 +148,41 @@ class Prediction extends Component {
     if (
       Boolean(this.state.confusionMatrix) &&
       Boolean(this.state.features) &&
-      Boolean(this.state.pred) &&
-      Boolean(this.state.modelAcc) &&
-      Boolean(this.state.testAcc)
+      this.state.pred != undefined &&
+      this.state.modelAcc != undefined &&
+      this.state.testAcc != undefined
     ) {
       this.setState({ getAllReqFlag: true });
     }
   };
 
   update = (dateValue) => {
-    console.log(
-      Boolean(this.state.confusionMatrix) &&
-        Boolean(this.state.features) &&
-        Boolean(this.state.pred) &&
-        Boolean(this.state.modelAcc) &&
-        Boolean(this.state.testAcc)
-    );
     this.setState({ date: new Date(dateValue) });
     let dateTime = new Date(dateValue);
     let fullYear = dateTime.getFullYear();
     dateTime.setDate(dateTime.getDate() + 1);
 
-    this.initObjects();
+    let dateString = dateTime
+      .toISOString()
+      .substring(0, 10)
+      .concat(" 00:00:00");
 
-    this.updateConfusionMatrix(fullYear);
-    this.updateHyperParams(fullYear);
-    this.updateFeatures(fullYear);
-    this.updatePred(dateTime);
-    this.updateAcc(fullYear);
-    this.updateFlag();
-    console.log(
-      Boolean(this.state.confusionMatrix) &&
-        Boolean(this.state.features) &&
-        Boolean(this.state.pred) &&
-        Boolean(this.state.modelAcc) &&
-        Boolean(this.state.testAcc)
-    );
+    this.initObjects();
+    let i = 0;
+    while (i < 20) {
+      if (this.state.confusionMatrix === {}) {
+        this.updateConfusionMatrix(fullYear);
+      } else if (this.state.hyperParams === {}) {
+        this.updateHyperParams(fullYear);
+      } else if (this.state.hyperParams === {}) {
+        this.updateFeatures(fullYear);
+      } else if (this.state.pred === undefined) {
+        this.updatePred(dateString);
+      } else if (this.state.modelAcc === undefined) {
+        this.updateAcc(fullYear);
+      }
+      i++;
+    }
 
     this.forceUpdate();
   };
