@@ -11,7 +11,8 @@ class HolidaysHeatmap extends Component {
             dataPoints: [],
             muslimHolidays: [],
             jewishHolidays: [],
-            christianHolidays: []
+            christianHolidays: [],
+            success: false
         };
     }
    
@@ -20,117 +21,124 @@ class HolidaysHeatmap extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.startDate !== this.props.startDate) {
+        if (prevProps.startDate !== this.props.startDate || this.state.success === false) {
             this.getDataPoints();
         }
     }
     
     async getDataPoints() {
-        let response = await axios.get("/Holidays", {
-            params: {
-                startDate : this.props.startDate,
-                endDate : this.props.endDate
-            }
-        });
-        var dps = [], muslimDps = [], jewishDps = [], christianDps = [];
-        response.data.map((holidaysData) => {
-            var count = 0;
-            var date = new Date(holidaysData.date)
-		    date.setDate(date.getDate());
-		    var formattedDate = date.toISOString().slice(0, 10);
-            formattedDate = formattedDate.split('-').join('/');
+        try {
+            let response = await axios.get("/Holidays", {
+                params: {
+                    startDate : this.props.startDate,
+                    endDate : this.props.endDate
+                }
+            });
+            var dps = [], muslimDps = [], jewishDps = [], christianDps = [];
+            response.data.map((holidaysData) => {
+                var count = 0;
+                var date = new Date(holidaysData.date)
+                date.setDate(date.getDate());
+                var formattedDate = date.toISOString().slice(0, 10);
+                formattedDate = formattedDate.split('-').join('/');
 
-            // Muslim holidays
-            if (holidaysData.Eid_al_Fitr === 1) {
-                muslimDps.push({ date: formattedDate, holiday: "Eid al Fitr" });
-                count += 1;
-            }
-            if (holidaysData.Arafat_Day === 1) {
-                muslimDps.push({ date: formattedDate, holiday: "Arafat Day" });
-                count += 1;
-            }
-            if (holidaysData.Islamic_New_Year === 1) {
-                muslimDps.push({ date: formattedDate, holiday: "Islamic New Year" });
-                count += 1;
-            }
-            if (holidaysData.Sacrifice_Feast === 1) {
-                muslimDps.push({ date: formattedDate, holiday: "Sacrifice Feast" });
-                count += 1;
-            }
-            if (holidaysData.Prophet_Muhammad_Birthday === 1) {
-                muslimDps.push({ date: formattedDate, holiday: "Prophet Muhammad Birthday" });
-                count += 1;
-            }
-            if (holidaysData.Ramadan === 1) {
-                muslimDps.push({ date: formattedDate, holiday: "Ramadan" });
-                count += 1;
-            }
-            // Jewish holidays
-            if (holidaysData.Passover === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Passover" });
-                count += 1;
-            }
-            if (holidaysData.Memorial_Day === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Memorial Day" });
-                count += 1;
-            }
-            if (holidaysData.Independence_Day === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Independence Day" });
-                count += 1;
-            }
-            if (holidaysData.Lag_BOmer === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Lag BOmer" });
-                count += 1;
-            }
-            if (holidaysData.Shavuot === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Shavuot" });
-                count += 1;
-            }
-            if (holidaysData.Rosh_Hashanah === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Rosh Hashanah" });
-                count += 1;
-            }
-            if (holidaysData.Yom_Kippur === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Yom Kippur" });
-                count += 1;
-            }
-            if (holidaysData.Sukkot === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Sukkot" });
-                count += 1;
-            }
-            if (holidaysData.Hanukkah === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Hanukkah" });
-                count += 1;
-            }
-            if (holidaysData.Purim === 1) {
-                jewishDps.push({ date: formattedDate, holiday: "Purim" });
-                count += 1;
-            }
-            // Christian holidays
-            if (holidaysData.New_Year_Day === 1) {
-                christianDps.push({ date: formattedDate, holiday: "New Year Day" });
-                count += 1;
-            }
-            if (holidaysData.Christmas_Day === 1) {
-                christianDps.push({ date: formattedDate, holiday: "Christmas Day" });
-                count += 1;
-            }
-            if (holidaysData.Easter === 1) {
-                christianDps.push({ date: formattedDate, holiday: "Easter" });
-                count += 1;
-            }
+                // Muslim holidays
+                if (holidaysData.Eid_al_Fitr === 1) {
+                    muslimDps.push({ date: formattedDate, holiday: "Eid al Fitr" });
+                    count += 1;
+                }
+                if (holidaysData.Arafat_Day === 1) {
+                    muslimDps.push({ date: formattedDate, holiday: "Arafat Day" });
+                    count += 1;
+                }
+                if (holidaysData.Islamic_New_Year === 1) {
+                    muslimDps.push({ date: formattedDate, holiday: "Islamic New Year" });
+                    count += 1;
+                }
+                if (holidaysData.Sacrifice_Feast === 1) {
+                    muslimDps.push({ date: formattedDate, holiday: "Sacrifice Feast" });
+                    count += 1;
+                }
+                if (holidaysData.Prophet_Muhammad_Birthday === 1) {
+                    muslimDps.push({ date: formattedDate, holiday: "Prophet Muhammad Birthday" });
+                    count += 1;
+                }
+                if (holidaysData.Ramadan === 1) {
+                    muslimDps.push({ date: formattedDate, holiday: "Ramadan" });
+                    count += 1;
+                }
+                // Jewish holidays
+                if (holidaysData.Passover === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Passover" });
+                    count += 1;
+                }
+                if (holidaysData.Memorial_Day === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Memorial Day" });
+                    count += 1;
+                }
+                if (holidaysData.Independence_Day === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Independence Day" });
+                    count += 1;
+                }
+                if (holidaysData.Lag_BOmer === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Lag BOmer" });
+                    count += 1;
+                }
+                if (holidaysData.Shavuot === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Shavuot" });
+                    count += 1;
+                }
+                if (holidaysData.Rosh_Hashanah === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Rosh Hashanah" });
+                    count += 1;
+                }
+                if (holidaysData.Yom_Kippur === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Yom Kippur" });
+                    count += 1;
+                }
+                if (holidaysData.Sukkot === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Sukkot" });
+                    count += 1;
+                }
+                if (holidaysData.Hanukkah === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Hanukkah" });
+                    count += 1;
+                }
+                if (holidaysData.Purim === 1) {
+                    jewishDps.push({ date: formattedDate, holiday: "Purim" });
+                    count += 1;
+                }
+                // Christian holidays
+                if (holidaysData.New_Year_Day === 1) {
+                    christianDps.push({ date: formattedDate, holiday: "New Year Day" });
+                    count += 1;
+                }
+                if (holidaysData.Christmas_Day === 1) {
+                    christianDps.push({ date: formattedDate, holiday: "Christmas Day" });
+                    count += 1;
+                }
+                if (holidaysData.Easter === 1) {
+                    christianDps.push({ date: formattedDate, holiday: "Easter" });
+                    count += 1;
+                }
 
-            if (count > 0) {
-                dps.push({ date: formattedDate, count: count });
-            }
-        })
+                if (count > 0) {
+                    dps.push({ date: formattedDate, count: count });
+                }
+            })
 
-        this.setState({
-            dataPoints: dps,
-            muslimHolidays: muslimDps,
-            jewishHolidays : jewishDps,
-            christianHolidays : christianDps
-        });
+            this.setState({
+                dataPoints: dps,
+                muslimHolidays: muslimDps,
+                jewishHolidays : jewishDps,
+                christianHolidays : christianDps,
+                success: true
+            });
+        } catch (err) {
+			this.setState({
+				success: false
+			});
+		}
     }
     
     render() {

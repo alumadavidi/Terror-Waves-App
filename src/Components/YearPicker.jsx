@@ -13,13 +13,12 @@ class YearPicker extends Component {
 
   handleChange(selectedOption) {
     this.setState({ selectedOption });
-    alert('Selected Year: ' + selectedOption.value);
     this.props.updateModel(selectedOption.value);
   };
 
   getOptions() {
     var years = []
-    for (var year = 2019; year >= 1970; year--) {
+    for (var year = 2019; year >= 1990; year--) {
         years.push({value: year, label: year})
     }
     return years;

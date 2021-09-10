@@ -25,7 +25,8 @@ class GoogleTrendsIsraelChart extends Component {
 			الحور_العين: [],
 			سورة_الفاتحة: [],
 			سورة_الانفال: [],
-			في_سبيل_الله: []
+			في_سبيل_الله: [],
+			success: false
         };
 		this.toggleGoogleIsraelDataSeries = this.toggleGoogleIsraelDataSeries.bind(this);
 	}
@@ -35,62 +36,69 @@ class GoogleTrendsIsraelChart extends Component {
     }
 	
     componentDidUpdate(prevProps) {
-        if (prevProps.startDate !== this.props.startDate && this.props.year >= 2004) {
+        if (this.props.year >= 2004 && (prevProps.startDate !== this.props.startDate || this.state.success === false)) {
 			this.getDataPoints();
         }
     }
 
 	async getDataPoints() {
-        let response = await axios.get("/GoogleTrendsIsrael", {
-            params: {
-                startDate : this.props.startDate,
-                endDate : this.props.endDate
-            }
-          });
-        var شهادة_dps = [], شهيد_dps = [], جهاد_dps = [], كافر_dps = [], كفار_dps = [], الأقصى_dps = [], وضوء_dps = [], عملية_dps = [],
-		تبرعات_dps = [], صدقة_dps = [], حلق_dps = [], فتوى_dps = [], الكوثر_dps = [], استشهاد_dps = [], الحور_العين_dps = [],
-		سورة_الفاتحة_dps = [], سورة_الانفال_dps = [], في_سبيل_الله_dps = [];
-        response.data.map((googleData) => {
-            شهادة_dps.push({ x: new Date(googleData.date), y: googleData.شهادة });
-			شهيد_dps.push({ x: new Date(googleData.date), y: googleData.شهيد });
-			جهاد_dps.push({ x: new Date(googleData.date), y: googleData.جهاد });
-			كافر_dps.push({ x: new Date(googleData.date), y: googleData.كافر });
-			كفار_dps.push({ x: new Date(googleData.date), y: googleData.كفار });
-			الأقصى_dps.push({ x: new Date(googleData.date), y: googleData.الأقصى });
-			وضوء_dps.push({ x: new Date(googleData.date), y: googleData.وضوء });
-			عملية_dps.push({ x: new Date(googleData.date), y: googleData.عملية });
-			تبرعات_dps.push({ x: new Date(googleData.date), y: googleData.تبرعات });
-			صدقة_dps.push({ x: new Date(googleData.date), y: googleData.صدقة });
-			حلق_dps.push({ x: new Date(googleData.date), y: googleData.حلق });
-			فتوى_dps.push({ x: new Date(googleData.date), y: googleData.فتوى });
-			الكوثر_dps.push({ x: new Date(googleData.date), y: googleData.الكوثر });
-			استشهاد_dps.push({ x: new Date(googleData.date), y: googleData.استشهاد });
-			الحور_العين_dps.push({ x: new Date(googleData.date), y: googleData.الحور_العين });
-			سورة_الفاتحة_dps.push({ x: new Date(googleData.date), y: googleData.سورة_الفاتحة });
-			سورة_الانفال_dps.push({ x: new Date(googleData.date), y: googleData.سورة_الانفال });
-			في_سبيل_الله_dps.push({ x: new Date(googleData.date), y: googleData.في_سبيل_الله });
-        })
+		try {
+			let response = await axios.get("/GoogleTrendsIsrael", {
+				params: {
+					startDate : this.props.startDate,
+					endDate : this.props.endDate
+				}
+			});
+			var شهادة_dps = [], شهيد_dps = [], جهاد_dps = [], كافر_dps = [], كفار_dps = [], الأقصى_dps = [], وضوء_dps = [], عملية_dps = [],
+			تبرعات_dps = [], صدقة_dps = [], حلق_dps = [], فتوى_dps = [], الكوثر_dps = [], استشهاد_dps = [], الحور_العين_dps = [],
+			سورة_الفاتحة_dps = [], سورة_الانفال_dps = [], في_سبيل_الله_dps = [];
+			response.data.map((googleData) => {
+				شهادة_dps.push({ x: new Date(googleData.date), y: googleData.شهادة });
+				شهيد_dps.push({ x: new Date(googleData.date), y: googleData.شهيد });
+				جهاد_dps.push({ x: new Date(googleData.date), y: googleData.جهاد });
+				كافر_dps.push({ x: new Date(googleData.date), y: googleData.كافر });
+				كفار_dps.push({ x: new Date(googleData.date), y: googleData.كفار });
+				الأقصى_dps.push({ x: new Date(googleData.date), y: googleData.الأقصى });
+				وضوء_dps.push({ x: new Date(googleData.date), y: googleData.وضوء });
+				عملية_dps.push({ x: new Date(googleData.date), y: googleData.عملية });
+				تبرعات_dps.push({ x: new Date(googleData.date), y: googleData.تبرعات });
+				صدقة_dps.push({ x: new Date(googleData.date), y: googleData.صدقة });
+				حلق_dps.push({ x: new Date(googleData.date), y: googleData.حلق });
+				فتوى_dps.push({ x: new Date(googleData.date), y: googleData.فتوى });
+				الكوثر_dps.push({ x: new Date(googleData.date), y: googleData.الكوثر });
+				استشهاد_dps.push({ x: new Date(googleData.date), y: googleData.استشهاد });
+				الحور_العين_dps.push({ x: new Date(googleData.date), y: googleData.الحور_العين });
+				سورة_الفاتحة_dps.push({ x: new Date(googleData.date), y: googleData.سورة_الفاتحة });
+				سورة_الانفال_dps.push({ x: new Date(googleData.date), y: googleData.سورة_الانفال });
+				في_سبيل_الله_dps.push({ x: new Date(googleData.date), y: googleData.في_سبيل_الله });
+			})
 
-        this.setState({
-			شهادة : شهادة_dps,
-			شهيد : شهيد_dps,
-			جهاد : جهاد_dps,
-			كافر : كافر_dps,
-			كفار : كفار_dps,
-			الأقصى : الأقصى_dps,
-			وضوء : وضوء_dps,
-			عملية : عملية_dps,
-			تبرعات : تبرعات_dps,
-			صدقة : صدقة_dps,
-			حلق : حلق_dps,
-			فتوى : فتوى_dps,
-			الكوثر : الكوثر_dps,
-			استشهاد : استشهاد_dps,
-			الحور_العين : الحور_العين_dps,
-			سورة_الفاتحة : سورة_الفاتحة_dps,
-			سورة_الانفال : سورة_الانفال_dps,
-			في_سبيل_الله : في_سبيل_الله_dps
-        });
+			this.setState({
+				شهادة : شهادة_dps,
+				شهيد : شهيد_dps,
+				جهاد : جهاد_dps,
+				كافر : كافر_dps,
+				كفار : كفار_dps,
+				الأقصى : الأقصى_dps,
+				وضوء : وضوء_dps,
+				عملية : عملية_dps,
+				تبرعات : تبرعات_dps,
+				صدقة : صدقة_dps,
+				حلق : حلق_dps,
+				فتوى : فتوى_dps,
+				الكوثر : الكوثر_dps,
+				استشهاد : استشهاد_dps,
+				الحور_العين : الحور_العين_dps,
+				سورة_الفاتحة : سورة_الفاتحة_dps,
+				سورة_الانفال : سورة_الانفال_dps,
+				في_سبيل_الله : في_سبيل_الله_dps,
+				success: true
+			});
+		} catch (err) {
+			this.setState({
+				success: false
+			});
+		}
 	}
 
 	toggleGoogleIsraelDataSeries(e) {
