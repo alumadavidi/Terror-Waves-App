@@ -25,7 +25,7 @@ class ModelHeatmap extends Component {
 
     async getDataPoints() {
         try {
-            let response = await axios.get("/ModelPredictions");
+            let response = await axios.get("/AllPredictions");
             var dps = [];
             response.data.map((modelData) => {
                 dps.push({ date: new Date(modelData.date), count: 1 });
