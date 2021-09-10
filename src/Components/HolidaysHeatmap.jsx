@@ -170,17 +170,27 @@ class HolidaysHeatmap extends Component {
                                     muslimHolidaysStr += ", "
                                 }
                                 muslimHolidaysStr += this.state.muslimHolidays[i].holiday;
-                                first = false
+                                first = false;
                             }
                         }
+                        first = true;
                         for(i=0; i < this.state.jewishHolidays.length; i++) {
                             if (this.state.jewishHolidays[i].date === date) {
+                                if (!first) {
+                                    jewishHolidaysStr += ", "
+                                }
                                 jewishHolidaysStr += this.state.jewishHolidays[i].holiday;
+                                first = false;
                             }
                         }
+                        first = true;
                         for(i=0; i < this.state.christianHolidays.length; i++) {
                             if (this.state.christianHolidays[i].date === date) {
+                                if (!first) {
+                                    christianHolidaysStr += ", "
+                                }
                                 christianHolidaysStr += this.state.christianHolidays[i].holiday;
+                                first = false;
                             }
                         }
 
