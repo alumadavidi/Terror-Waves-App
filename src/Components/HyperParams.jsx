@@ -12,7 +12,7 @@ class HyperParams extends Component {
             return (
               <li className="row" key={key}>
                 <div id="title">{key.replaceAll("_", " ")}</div>
-                <div id="val">{data[key]}</div>
+                <div id="val">{Number(data[key]).toFixed(2)}</div>
               </li>
             );
           })}
