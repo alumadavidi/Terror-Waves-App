@@ -46,17 +46,12 @@ class WeatherChart extends Component {
 			});
 		} catch (err) {
 			if (err.message.includes('404') || err.message.includes('500')) {
-				//alert(err);
+				this.props.setSuccess(false);
 			} else {				
 				this.setState({
 					success: false
 				});
 			}
-
-			/*
-			this.props.setSuccess(false);
-			*/
-
 		}
     }
 

@@ -43,9 +43,13 @@ class AttacksTable extends Component {
 				success: true
 			});
 		} catch (err) {
-			this.setState({
-				success: false
-			});
+			if (err.message.includes('404') || err.message.includes('500')) {
+				this.props.setSuccess(false);
+			} else {				
+				this.setState({
+					success: false
+				});
+			}
         }
 	}
 	
@@ -71,7 +75,12 @@ class AttacksTable extends Component {
 			)
 		} else {
 			for (var i=0; i < this.state.info.length; i++) {
-				let summary;
+				let city, summary;
+				if (this.state.info[i].city === " ") {
+					city = "---";
+				} else {
+					city = this.state.info[i].city;
+				}
 				if (this.state.info[i].summary === "\"") {
 					summary =
 					<td className = "attacksTable">
@@ -86,7 +95,7 @@ class AttacksTable extends Component {
 				attacks.push(
 					<tr>
 						<td className = "attacksTable">
-							{this.state.info[i].city}
+							{city}
 						</td>
 						<td className = "attacksTable">
 							{this.state.info[i].wounded}

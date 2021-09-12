@@ -16,33 +16,31 @@ class ClassificationModel extends Component {
 			year: 2019,
 			date: "2019/12/31",
 			graphsStartDate : "2019/12/01",
-			graphsEndDate : "2019/12/30",
-
-			/*
-			// Successful connection to the database
+			graphsEndDate : "2019/12/30",			
+			// Indication of success connecting to server
 			success : null
-			*/
-
 		}
 		this.updateModel = this.updateModel.bind(this);
 		this.updateCharts = this.updateCharts.bind(this);
-
-		/*
-		this.setSuccess = this.setSuccess.bind(this);	
-		this.resetSuccess = this.resetSuccess.bind(this);
-		*/
-
+		this.setSuccess = this.setSuccess.bind(this);
+		this.refresh = this.refresh.bind(this);
 	}
 
-	/*
-	shouldComponentUpdate(nextState) {
-		if (nextState.success === null) { 
-		  return false;
-		}
-		return true;
+	setSuccess(status) {
+		this.setState({
+			success : status
+		});		
 	}
-	*/
-	
+
+	refresh() {
+		this.setState({
+			year: 2019,
+			date: "2019/12/31",
+			graphsStartDate : "2019/12/01",
+			graphsEndDate : "2019/12/30",
+			success : null
+		});
+	}
 	
 	updateModel(selectedYear) {
 		this.setState({
@@ -70,91 +68,82 @@ class ClassificationModel extends Component {
 		});
 	}
 
-	/*
-	setSuccess(status) {
-		alert("hi");
-		
-		this.setState({
-			success : status
-		});
-		
-	}
-	*/
-	
-
-	/*
-	resetSuccess() {
-		this.setState({
-			success : null
-		});
-	}
-	*/
-
     render() {
-		let googleAndSpecialDays;
-		const specialDaysHeatmaps =
-		<div>
-			<div id = "special_days_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
-				Special Days
-			</div>
-			<div id = "holidays_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px', marginRight: '45px'}}>
-				Holidays
-				<HolidaysHeatmap
-					startDate = {this.state.graphsStartDate}
-					endDate = {this.state.graphsEndDate}
-				/>
-			</div>
-			<div id = "elections_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px'}}>
-				Elections
-				<ElectionsHeatmap
-					startDate = {this.state.graphsStartDate}
-					endDate = {this.state.graphsEndDate}
-				/>
-			</div>
-		</div>
-
-		if (this.state.year >= 2004) {
-			googleAndSpecialDays =
-			<div>
-				<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-					<GoogleTrendsIsraelChart
-						startDate = {this.state.graphsStartDate}
-						endDate = {this.state.graphsEndDate}
-						year = {this.state.year}
+		// Error connecting to server
+		if (this.state.success === false) {
+			return (
+				<div>
+					<ErrorScreen
+						refresh = {this.refresh}
 					/>
 				</div>
-				<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
-					<GoogleTrendsPalestineChart
-						startDate = {this.state.graphsStartDate}
-						endDate = {this.state.graphsEndDate}
-						year = {this.state.year}
-					/>
-				</div>
-				<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', paddingLeft: '5px', marginBottom: '20px', border: '1px solid black'}}>
-					{specialDaysHeatmaps}
-				</div>
-			</div>			
+			)
+		// Success connecting to server
 		} else {
-			googleAndSpecialDays =
+			let googleAndSpecialDays;
+			const specialDaysHeatmaps =
 			<div>
-				<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', marginBottom: '20px', border: '1px solid black'}}>
-					{specialDaysHeatmaps}
+				<div id = "special_days_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
+					Special Days
 				</div>
-				<div id = "google_trends_no_data" style= {{display: 'inline-block', background: 'white', width: '45%', height: '206px', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', marginBottom: '20px', border: '1px solid black'}}>
-					<h1 id = "google_trends_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
-						Google Trends
-					</h1>
-					<p id = "google_trends_content" style= {{float: 'left', fontFamily: 'Candara', fontSize: 16, color: 'red', marginTop: '60px', paddingLeft: '98px'}}>
-						No Google Trends data before 2004
-					</p>
+				<div id = "holidays_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px', marginRight: '45px'}}>
+					Holidays
+					<HolidaysHeatmap
+						setSuccess = {this.setSuccess}
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
+					/>
+				</div>
+				<div id = "elections_heatmap" style= {{float: 'left', fontFamily: 'Candara', fontWeight: 'bold', fontSize: 16, paddingBottom: '5px', paddingLeft: '40px'}}>
+					Elections
+					<ElectionsHeatmap
+						setSuccess = {this.setSuccess}
+						startDate = {this.state.graphsStartDate}
+						endDate = {this.state.graphsEndDate}
+					/>
 				</div>
 			</div>
-		}
 
-		/*
-		if (this.state.success !== false) {
-		*/
-		//if (false) {
+			if (this.state.year >= 2004) {
+				googleAndSpecialDays =
+				<div>
+					<div id = "google_trends_israel_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
+						<GoogleTrendsIsraelChart
+							setSuccess = {this.setSuccess}
+							startDate = {this.state.graphsStartDate}
+							endDate = {this.state.graphsEndDate}
+							year = {this.state.year}
+						/>
+					</div>
+					<div id = "google_trends_palestine_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
+						<GoogleTrendsPalestineChart
+							setSuccess = {this.setSuccess}
+							startDate = {this.state.graphsStartDate}
+							endDate = {this.state.graphsEndDate}
+							year = {this.state.year}
+						/>
+					</div>
+					<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', paddingLeft: '5px', marginBottom: '20px', border: '1px solid black'}}>
+						{specialDaysHeatmaps}
+					</div>
+				</div>			
+			} else {
+				googleAndSpecialDays =
+				<div>
+					<div id = "special_days_heatmaps" style= {{display: 'inline-block', background: 'white', width: '45%', height: '100%', marginTop: '10px', marginLleft: 'auto', marginRight: '15px', marginBottom: '20px', border: '1px solid black'}}>
+						{specialDaysHeatmaps}
+					</div>
+					<div id = "google_trends_no_data" style= {{display: 'inline-block', background: 'white', width: '45%', height: '206px', marginTop: '10px', marginLleft: 'auto', marginRight: 'auto', marginBottom: '20px', border: '1px solid black'}}>
+						<h1 id = "google_trends_header" style= {{fontFamily: 'Candara', fontWeight: 'bold', fontSize: 20, paddingBottom: '5px'}}>
+							Google Trends
+						</h1>
+						<p id = "google_trends_content" style= {{float: 'left', fontFamily: 'Candara', fontSize: 16, color: 'red', marginTop: '60px', paddingLeft: '98px'}}>
+							No Google Trends data before 2004
+						</p>
+					</div>
+				</div>
+			}
+
 			return (
 				<div id = "classification_charts">
 					<div id = "model_heatmap" style= {{fontFamily: 'Candara', fontWeight: 'bold', display: 'inline-block', background: 'white', width: '94%', height: '100%', marginTop: '10px', marginBottom: '15px', marginLleft: 'auto', marginRight: 'auto', paddingTop: '10px', paddingLeft: '5px', border: '1px solid black'}}>
@@ -179,7 +168,8 @@ class ClassificationModel extends Component {
 								{this.state.date}
 							</div>
 						</div>
-						<ModelHeatmap
+						<ModelHeatmap						
+							setSuccess = {this.setSuccess}
 							updateCharts = {this.updateCharts}
 							year = {this.state.year}
 						/>
@@ -188,18 +178,15 @@ class ClassificationModel extends Component {
 						Data of the 30 days before the selected date
 					</div>
 					<div id = "weather_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: '15px', border: '1px solid black'}}>
-						<WeatherChart
-
-							/*
+						<WeatherChart							
 							setSuccess = {this.setSuccess}
-							*/
-
 							startDate = {this.state.graphsStartDate}
 							endDate = {this.state.graphsEndDate}
 						/>
 					</div>
 					<div id = "attacks_chart" style= {{display: 'inline-block', width: '45%', height: '100%', marginLleft: 'auto', marginRight: 'auto', border: '1px solid black'}}>
-						<AttacksChart 
+						<AttacksChart
+							setSuccess = {this.setSuccess}							
 							startDate = {this.state.graphsStartDate}
 							endDate = {this.state.graphsEndDate}
 						/>
@@ -207,17 +194,7 @@ class ClassificationModel extends Component {
 					{googleAndSpecialDays}
 				</div>
 			)
-		/*
-		} else {
-			return (
-				<div>
-					<ErrorScreen
-						refresh = {this.setSuccess}
-					/>
-				</div>
-			)
 		}
-		*/
     }
 }
 

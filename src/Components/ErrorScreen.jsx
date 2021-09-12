@@ -6,16 +6,25 @@ class ErrorScreen extends Component {
         <div
             style={{
                 fontFamily: 'Candara',
-                fontWeight: 'bold',
-                fontSize: 22,
+                fontSize: 20,
+                color: '#3d528f',
                 marginTop: '120px',
                 display: 'inline-block',
-                border: '2px dashed black',
-                paddingTop: '20px',
-                paddingBottom: '20px',
+                border: '1px dashed #3d528f',
+                paddingTop: '10px',
+                paddingBottom: '10px',
                 paddingLeft: '20px',
                 paddingRight: '20px',
+                background: 'white'
             }}>
+            <img
+                src="../images/connection-error.png"
+                style={{
+                    width: 440,
+                    height: 205,
+                    paddingLeft: '30px'
+                }}
+            />
             <div>
                 Oops... Something went wrong.
             </div>
@@ -37,7 +46,7 @@ class ErrorScreen extends Component {
                     fontWeight: 'bold',
                     fontSize: 22,
                     textDecoration : 'underline',
-                    color : 'red',
+                    color : '#9a64b4',
                     cursor : 'pointer'
                 }}
             >

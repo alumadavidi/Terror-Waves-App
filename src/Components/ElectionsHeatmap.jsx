@@ -44,9 +44,13 @@ class ElectionsHeatmap extends Component {
                 success: true
             });
         } catch (err) {
-			this.setState({
-				success: false
-			});
+			if (err.message.includes('404') || err.message.includes('500')) {
+				this.props.setSuccess(false);
+			} else {				
+				this.setState({
+					success: false
+				});
+			}
 		}
     }   
     
