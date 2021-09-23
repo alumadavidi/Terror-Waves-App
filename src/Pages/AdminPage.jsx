@@ -2,10 +2,29 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../Pages.css";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import ErrorScreen from "../Components/ErrorScreen";
 
 class AdminPage extends Component {
-  handleDragEnter = () => {};
-  handleDragLeave = () => {};
+  state = {
+    success: undefined,
+  };
+  setSuccess = (status) => {
+    this.setState({
+      success: status,
+    });
+  };
+
+  refresh = () => {
+    this.setState({
+      success: undefined,
+    });
+  };
+  handleDragLeave = (e) => {
+    e.preventDefault();
+  };
+  handleDragEnter = (e) => {
+    e.preventDefault();
+  };
   handleDragOver = (e) => {
     e.preventDefault();
   };
@@ -15,6 +34,7 @@ class AdminPage extends Component {
     const data = new FormData();
 
     let fileNum = 0;
+    let uploaded = false;
 
     Array.from(e.dataTransfer.files)
       .filter((file) => file.type === "application/vnd.ms-excel")
@@ -22,28 +42,47 @@ class AdminPage extends Component {
         data.append("" + fileNum, file);
         fileNum = fileNum + 1;
       });
+    console.log(e.dataTransfer.files.length);
+    if (fileNum === 0) {
+      alert("Files have not been uploaded - type error");
+      return;
+    }
 
     axios
-      .post("/uploadcsv", data)
+      .post("/ModelData", data)
       .then((res) => {
-        console.log(res.status);
-        if (res.status === 200) {
-        } else {
+        if (e.dataTransfer.files.length > fileNum) {
+          alert(
+            "something went wrong - please check your files name or type and try again"
+          );
+        } else if (res.status === 200) {
+          alert("files uploded succecfuly");
         }
       })
-      .catch((error) => {});
+      .catch((error) => {
+        if (error.response.status === 404) {
+          alert(
+            "something went wrong - please check your files name or type and try again"
+          );
+        } else {
+          this.setSuccess(false);
+        }
+      });
   };
 
   render() {
+    if (this.state.success === false) {
+      return <ErrorScreen refresh={this.refresh} />;
+    }
     return (
       <div className="uploadPage">
         <div
           className="drag-area"
           onDragEnter={(e) => {
-            this.handleDragEnter();
+            this.handleDragEnter(e);
           }}
           onDragLeave={(e) => {
-            this.handleDragLeave();
+            this.handleDragLeave(e);
           }}
           onDragOver={(e) => {
             this.handleDragOver(e);

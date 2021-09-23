@@ -4,6 +4,7 @@ import DatePicker from "../Components/DatePicker";
 import ConfusionMatrix from "../Components/ConfusionMatrix";
 import PredictionData from "../Components/PredictionData";
 import axios from "axios";
+import ErrorScreen from "../Components/ErrorScreen";
 
 class Prediction extends Component {
   state = {
@@ -14,6 +15,17 @@ class Prediction extends Component {
     pred: undefined,
     modelAcc: undefined,
     testAcc: undefined,
+    success: undefined,
+  };
+
+  setSuccess = (status) => {
+    this.setState({
+      success: status,
+    });
+  };
+
+  refresh = () => {
+    this.initObjects();
   };
 
   updateConfusionMatrix = (fullYear) => {
@@ -31,11 +43,7 @@ class Prediction extends Component {
         }
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          alert("There is no confusion matrix for " + String(fullYear));
-        } else {
-          alert("Error! Something went wrong - server faild");
-        }
+        this.setSuccess(false);
       });
   };
 
@@ -54,11 +62,7 @@ class Prediction extends Component {
         }
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          alert("There is no hyper parameters for " + String(fullYear));
-        } else {
-          alert("Error! Something went wrong - server faild");
-        }
+        this.setSuccess(false);
       });
   };
 
@@ -77,11 +81,7 @@ class Prediction extends Component {
         }
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          alert("There is no features for " + String(fullYear));
-        } else {
-          alert("Error! Something went wrong - server faild");
-        }
+        this.setSuccess(false);
       });
   };
 
@@ -101,12 +101,7 @@ class Prediction extends Component {
         }
       })
       .catch((error) => {
-        console.log(error);
-        if (error.response.status === 404) {
-          alert("There is no features dgsfgsfor " + String(fullYear));
-        } else {
-          alert("Error! Something went wrong - server faild");
-        }
+        this.setSuccess(false);
       });
   };
   updatePred = (dateTime) => {
@@ -123,11 +118,7 @@ class Prediction extends Component {
         }
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          alert("There is no features dgsfgsfor " + String(dateTime));
-        } else {
-          alert("Error! Something went wrong - server faild");
-        }
+        this.setSuccess(false);
       });
   };
 
@@ -139,20 +130,8 @@ class Prediction extends Component {
       pred: undefined,
       modelAcc: undefined,
       testAcc: undefined,
-      getAllReqFlag: false,
+      success: undefined,
     });
-  };
-
-  updateFlag = () => {
-    if (
-      Boolean(this.state.confusionMatrix) &&
-      Boolean(this.state.features) &&
-      this.state.pred != undefined &&
-      this.state.modelAcc != undefined &&
-      this.state.testAcc != undefined
-    ) {
-      this.setState({ getAllReqFlag: true });
-    }
   };
 
   update = (dateValue) => {
@@ -166,17 +145,14 @@ class Prediction extends Component {
       .substring(0, 10)
       .concat(" 00:00:00");
 
-    console.log(dateString);
-
     this.initObjects();
     this.updateConfusionMatrix(fullYear);
     this.updateHyperParams(fullYear);
     this.updateFeatures(fullYear);
     this.updatePred(dateString);
     this.updateAcc(fullYear);
-
-    this.forceUpdate();
   };
+
   getConfusionMatrix = () => {
     return this.state.confusionMatrix;
   };
@@ -208,6 +184,9 @@ class Prediction extends Component {
   };
 
   render() {
+    if (this.state.success === false) {
+      return <ErrorScreen refresh={this.refresh} />;
+    }
     return (
       <div>
         <DatePicker updateDate={this.update} />

@@ -5,8 +5,8 @@ import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 class DatePicker extends Component {
   state = {
     dateValue: new Date(),
-    startDate: new Date(1970, 1, 1),
-    enddate: new Date(2019, 1, 1),
+    startDate: new Date(1989, 12, 1),
+    enddate: new Date(2019, 11, 31),
   };
   setDate = (e) => {
     if (e.value === null) {

@@ -120,10 +120,10 @@
   min-height: 100vh;
 }
 .uploadPage {
-  padding-top: 5%;
+  padding-top: 10%;
 }
 .drag-area {
-  background: #5256ad;
+  background: #77aed3;
 
   border: 2px dashed #fff;
   height: 500px;
