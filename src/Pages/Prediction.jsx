@@ -14,7 +14,6 @@ class Prediction extends Component {
     pred: undefined,
     modelAcc: undefined,
     testAcc: undefined,
-    getAllReqFlag: false,
   };
 
   updateConfusionMatrix = (fullYear) => {
@@ -114,7 +113,7 @@ class Prediction extends Component {
     axios
       .get("/ModelPredictions", {
         params: {
-          date: dateTime,
+          day_prediction: dateTime,
         },
       })
       .then((res) => {
@@ -167,22 +166,14 @@ class Prediction extends Component {
       .substring(0, 10)
       .concat(" 00:00:00");
 
+    console.log(dateString);
+
     this.initObjects();
-    let i = 0;
-    while (i < 20) {
-      if (this.state.confusionMatrix === {}) {
-        this.updateConfusionMatrix(fullYear);
-      } else if (this.state.hyperParams === {}) {
-        this.updateHyperParams(fullYear);
-      } else if (this.state.hyperParams === {}) {
-        this.updateFeatures(fullYear);
-      } else if (this.state.pred === undefined) {
-        this.updatePred(dateString);
-      } else if (this.state.modelAcc === undefined) {
-        this.updateAcc(fullYear);
-      }
-      i++;
-    }
+    this.updateConfusionMatrix(fullYear);
+    this.updateHyperParams(fullYear);
+    this.updateFeatures(fullYear);
+    this.updatePred(dateString);
+    this.updateAcc(fullYear);
 
     this.forceUpdate();
   };
