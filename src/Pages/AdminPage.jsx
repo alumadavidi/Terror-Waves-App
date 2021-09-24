@@ -3,11 +3,24 @@ import axios from "axios";
 import "../Pages.css";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import ErrorScreen from "../Components/ErrorScreen";
+import TrainButton from "../Components/TrainButton";
+import YearPicker from "../Components/YearPicker";
 
 class AdminPage extends Component {
   state = {
     success: undefined,
+    trainButtonPressed: false,
   };
+
+  setButtonPressed = (status) => {
+    this.setState({
+      trainButtonPressed: status,
+    });
+  };
+  getButtonPress = () => {
+    return this.state.trainButtonPressed;
+  };
+
   setSuccess = (status) => {
     this.setState({
       success: status,
@@ -57,6 +70,7 @@ class AdminPage extends Component {
           );
         } else if (res.status === 200) {
           alert("files uploded succecfuly");
+          this.setState({ trainButtonPressed: false });
         }
       })
       .catch((error) => {
@@ -76,6 +90,13 @@ class AdminPage extends Component {
     }
     return (
       <div className="uploadPage">
+        <TrainButton
+          setStatus={(status) => {
+            this.setButtonPressed(status);
+          }}
+          getStatus={() => this.getButtonPress()}
+          onError={() => this.setSuccess(false)}
+        />
         <div
           className="drag-area"
           onDragEnter={(e) => {
