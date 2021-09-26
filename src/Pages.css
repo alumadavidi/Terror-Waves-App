@@ -34,7 +34,7 @@
   width: 50%;
 }
 .ParamList {
-  height: 250px;
+  height: 215px;
   background-color: white;
   border: 1px solid gainsboro;
   overflow-y: scroll;
@@ -65,7 +65,7 @@
 
 .PredTitle {
   color: rgb(61, 190, 177);
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .PredData #Acc {
@@ -93,9 +93,6 @@
 .AccDiv {
   padding: 3%;
   flex: 1 1 0px;
-}
-
-.predDiv {
 }
 
 .PredLeft {
@@ -195,7 +192,7 @@
 }
 
 .ConfusionMatrix {
-  margin-top: 30%;
+  margin-top: 28%;
   margin-right: 10%;
   float: right;
 }

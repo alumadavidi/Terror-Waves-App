@@ -11,7 +11,11 @@ class TrainButton extends Component {
     this.props.setStatus(true);
 
     axios
-      .post("/ModelDateResult", {})
+      .post("/ModelDateResult", {
+        params: {
+          test_year: 2019,
+        },
+      })
       .then((res) => {
         if (res.status === 200) {
         }

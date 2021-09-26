@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AnomalyChart from "../Components/AnomalyChart";
 import AttacksTable from "../Components/AttacksTable";
-import ErrorScreen from '../Components/ErrorScreen';
+import ErrorScreen from "../Components/ErrorScreen";
 
 class AnomalyGraph extends Component {
   constructor() {
@@ -10,7 +10,7 @@ class AnomalyGraph extends Component {
       date: "---",
       loss: "---",
       // Indication of success connecting to server
-			success : null
+      success: null,
     };
     this.setDateAndLoss = this.setDateAndLoss.bind(this);
     this.setSuccess = this.setSuccess.bind(this);
@@ -18,41 +18,40 @@ class AnomalyGraph extends Component {
   }
 
   setSuccess(status) {
-		this.setState({
-			success : status
-		});
-	}
+    this.setState({
+      success: status,
+    });
+  }
 
   refresh() {
     this.setState({
-			date: "---",
+      date: "---",
       loss: "---",
-			success : null
-		});
+      success: null,
+    });
   }
 
   setDateAndLoss(e) {
     var date = e.dataPoint.x.toISOString().slice(0, 10);
-    date = date.split('-').join('/');
+    date = date.split("-").join("/");
+
     var loss = parseFloat(e.dataPoint.y).toFixed(8);
-    this.setState({ 
-      date : date,
-      loss : loss
+    this.setState({
+      date: date,
+      loss: loss,
     });
   }
 
   render() {
     // Error connecting to server
-		if (this.state.success === false) {
-			return (
-				<div>
-					<ErrorScreen
-						refresh = {this.refresh}
-					/>
-				</div>
-			)
-		// Success connecting to server
-		} else {
+    if (this.state.success === false) {
+      return (
+        <div>
+          <ErrorScreen refresh={this.refresh} />
+        </div>
+      );
+      // Success connecting to server
+    } else {
       return (
         <div>
           <div
@@ -69,68 +68,63 @@ class AnomalyGraph extends Component {
             }}
           >
             <AnomalyChart
-              setSuccess = {this.setSuccess}
-              setDateAndLoss = {this.setDateAndLoss}
+              setSuccess={this.setSuccess}
+              setDateAndLoss={this.setDateAndLoss}
             />
           </div>
           <div
-              style={{
-                paddingLeft: "40px",
-                paddingBottom: "20px"
-              }}
-            >
+            style={{
+              paddingLeft: "40px",
+              paddingBottom: "20px",
+            }}
+          >
             <div
               style={{
-                float: 'left',
+                float: "left",
                 fontSize: 16,
-                fontFamily: 'Candara',
-                fontWeight: 'bold',
-                paddingBottom: '10px',
-                textAlign: 'left'
+                fontFamily: "Candara",
+                fontWeight: "bold",
+                paddingBottom: "10px",
+                textAlign: "left",
               }}
             >
               <div
                 style={{
-                  float: 'left'
+                  float: "left",
                 }}
               >
                 Selected Date:
               </div>
               <div
                 style={{
-                  float: 'left',
-                  paddingLeft: '5px',
-                  color: '#f43e3a'
+                  float: "left",
+                  paddingLeft: "5px",
+                  color: "#f43e3a",
                 }}
               >
                 {this.state.date}
               </div>
               <div
                 style={{
-                  float: 'left',
-                  paddingLeft: '20px'
+                  float: "left",
+                  paddingLeft: "20px",
                 }}
               >
                 Loss Value:
               </div>
               <div
                 style={{
-                  float: 'left',
-                  paddingLeft: '5px',
-                  paddingBottom: '5px',
-                  color: '#f43e3a'
+                  float: "left",
+                  paddingLeft: "5px",
+                  paddingBottom: "5px",
+                  color: "#f43e3a",
                 }}
               >
                 {this.state.loss}
               </div>
-              <div>
-                Attacks on the next day:
-              </div>
+              <div>Attacks on the next day:</div>
             </div>
-            <AttacksTable
-              setSuccess = {this.setSuccess}
-              date = {this.state.date}
-            />
+            <AttacksTable setSuccess={this.setSuccess} date={this.state.date} />
           </div>
         </div>
       );
