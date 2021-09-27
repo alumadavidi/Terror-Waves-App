@@ -27,7 +27,7 @@ class PredictionData extends Component {
             </div>
           </div>
           <div className="AccDiv">
-            <h3 className="PredTitle">Model accuracy</h3>
+            <h3 className="PredTitle">Train accuracy</h3>
 
             <div className="ModelView">
               <h1 id="Acc">{this.getAcc(this.props.getModelAcc())}</h1>

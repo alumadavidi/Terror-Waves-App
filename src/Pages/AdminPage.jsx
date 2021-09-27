@@ -30,6 +30,7 @@ class AdminPage extends Component {
   refresh = () => {
     this.setState({
       success: undefined,
+      trainButtonPressed: false,
     });
   };
   handleDragLeave = (e) => {
