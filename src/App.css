@@ -131,19 +131,3 @@ button:hover {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
-
-.attacksTable {
-  border: 0.5px solid black;
-  border-collapse: collapse;
-  font-family: "candara";
-  font-size: 15px;
-}
-
-th.attacksTable,
-td.attacksTable {
-  padding: 10px;
-}
-
-th.attacksTable {
-  background-color: #0f4a8d5e;
-}

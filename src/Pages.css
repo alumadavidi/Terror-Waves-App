@@ -34,7 +34,7 @@
   width: 50%;
 }
 .ParamList {
-  height: 215px;
+  height: 200px;
   background-color: white;
   border: 1px solid gainsboro;
   overflow-y: scroll;
@@ -123,7 +123,7 @@
   background: #77aed3;
 
   border: 2px dashed #fff;
-  height: 500px;
+  height: 430px;
   width: 70%;
   border-radius: 5px;
   display: flex;
@@ -191,8 +191,30 @@
   border: "1px solid black";
 }
 
+.attacksTable {
+  border: 0.5px solid black;
+  border-collapse: collapse;
+  font-family: "candara";
+  font-size: 15px;
+}
+
+th.attacksTable,
+td.attacksTable {
+  padding: 10px;
+}
+
+th.attacksTable {
+  background-color: #0f4a8d5e;
+}
+
+.infoTitle {
+  font-family: "candara";
+  margin-top: 60px;
+  margin-bottom: 5px;
+}
+
 .ConfusionMatrix {
-  margin-top: 28%;
+  margin-top: 27%;
   margin-right: 10%;
   float: right;
 }
@@ -217,11 +239,12 @@ th.cmTable {
 
 .train-button {
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
+  margin-right: 50px;
   border: none;
   color: white;
-  font-family: Avenir, Arial, sans-serif;
+  font-family: candara;
   font-weight: 900;
   font-size: 2.5rem;
   background: red;
@@ -243,11 +266,12 @@ button span {
 
 .train-button-pressed {
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
+  margin-right: 50px;
   border: none;
   color: white;
-  font-family: Avenir, Arial, sans-serif;
+  font-family: candara;
   font-weight: 900;
   font-size: 2.5rem;
   background: green;

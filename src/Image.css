@@ -51,9 +51,11 @@
 .image_title {
   font-size: 1.5em;
   font-weight: bold;
+  font-family: "Candara";
 }
 
 .image__description {
   font-size: 1em;
   margin-top: 0.25em;
+  font-family: "Candara";
 }
