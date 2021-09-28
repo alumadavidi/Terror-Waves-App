@@ -34,8 +34,6 @@ class AnomalyGraph extends Component {
   setDateAndLoss(e) {
     var date = e.dataPoint.x.toISOString().slice(0, 10);
     date = date.split("-").join("/");
-    alert(date);
-
     var loss = parseFloat(e.dataPoint.y).toFixed(8);
     this.setState({
       date: date,
