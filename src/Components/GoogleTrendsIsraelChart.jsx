@@ -166,7 +166,7 @@ class GoogleTrendsIsraelChart extends Component {
 			{
 				type: "line",
 				name: "جهاد",
-				visible: false,
+				visible: true,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
 				dataPoints: this.state.جهاد
@@ -174,7 +174,7 @@ class GoogleTrendsIsraelChart extends Component {
 			{
 				type: "line",
 				name: "كافر",
-				visible: true,
+				visible: false,
 				showInLegend: true,
 				xValueFormatString: "YYYY/MM/DD",
 				dataPoints: this.state.كافر
