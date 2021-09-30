@@ -29,7 +29,7 @@ class TrainButton extends Component {
       return (
         <div>
           <button className="train-button-pressed" onClick={() => this.press()}>
-            <span>Done!</span>
+            <span>Train!</span>
           </button>
         </div>
       );
